@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Login from "./components/Login";
 import Pocetna from "./components/Pocetna";
+import OAplikaciji from "./components/OAplikaciji";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,11 @@ const App = () => {
           name="Pocetna"
           component={Pocetna}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OAplikaciji"
+          component={OAplikaciji}
+          options={{ headerShown: true, title: "O Aplikaciji" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

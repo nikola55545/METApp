@@ -13,6 +13,7 @@ import {
   ScrollView,
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
+
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -88,7 +89,7 @@ export default class Login extends Component {
               style={styles.loginButton}
               onPress={this.submitForm}
             >
-              <Text style={{ color: "red" }}>PRIJAVITE SE</Text>
+              <Text style={{ color: "#c9093d" }}>PRIJAVITE SE</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
