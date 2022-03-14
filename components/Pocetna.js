@@ -93,13 +93,23 @@ export default class Pocetna extends Component {
               <Text>ZIMBRA</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.teraj}>
+          <TouchableOpacity
+            onPress={({ navigation }) => {
+              this.props.navigation.navigate("Obavestenja");
+              this.setState({ visibleModal: null });
+            }}
+          >
             <View style={styles.button}>
               <Image source={OBAVESTENJAIcon} style={styles.optionButtons} />
               <Text>OBAVEŠTENJA</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.teraj}>
+          <TouchableOpacity
+            onPress={({ navigation }) => {
+              this.props.navigation.navigate("Popusti");
+              this.setState({ visibleModal: null });
+            }}
+          >
             <View style={styles.button}>
               <Image source={POPUSTIIcon} style={styles.optionButtons} />
               <Text>POPUSTI</Text>
