@@ -157,7 +157,7 @@ export default class Pocetna extends Component {
           justifyContent: "flex-start",
         }}
       >
-        <StatusBar style="auto" />
+        <StatusBar style="light" />
         <View
           style={{
             backgroundColor: "#c9093d",
@@ -199,6 +199,8 @@ export default class Pocetna extends Component {
             Ime Prezime
           </Text>
         </View>
+
+        <Text>Ovde ide ostalo</Text>
 
         <Modal
           isVisible={this.state.visibleModal === 1}
@@ -258,7 +260,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "flex-end",
-    paddingRight: 30,
+    paddingRight: 20,
   },
   optionButtons: {
     resizeMode: "contain",
