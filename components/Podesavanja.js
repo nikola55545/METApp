@@ -18,7 +18,7 @@ import ShareIcon from '../assets/icons/info.png';
 import InfoIcon from '../assets/icons/share.png';
 
 export default class Podesavanja extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       activeSwitch: null,
@@ -47,7 +47,7 @@ export default class Podesavanja extends Component {
           />
           <View>
             <Text>Zimbra Mail</Text>
-            <Text style={{ color: 'grey' }}>Obaveštenja o novim porukama</Text>
+            <Text style={{ color: 'grey', fontSize: 13 }}>Obaveštenja o novim porukama</Text>
           </View>
         </View>
 
@@ -61,7 +61,7 @@ export default class Podesavanja extends Component {
           />
           <View>
             <Text>Notifikacije</Text>
-            <Text style={{ color: 'grey' }}>Važne informacije - obaveštenja</Text>
+            <Text style={{ color: 'grey', fontSize: 13 }}>Važne informacije - obaveštenja</Text>
           </View>
         </View>
 
@@ -69,7 +69,7 @@ export default class Podesavanja extends Component {
           <Image source={InfoIcon} style={styles.buttonIcon} />
           <View>
             <Text>O MET Aplikaciji</Text>
-            <Text style={{ color: 'grey' }}>Od MET studenata, za MET studente</Text>
+            <Text style={{ color: 'grey', fontSize: 13 }}>Od MET studenata, za MET studente</Text>
           </View>
         </TouchableOpacity>
 
@@ -77,7 +77,7 @@ export default class Podesavanja extends Component {
           <Image source={ShareIcon} style={styles.buttonIcon} />
           <View>
             <Text>Preporuči prijatelju</Text>
-            <Text style={{ color: 'grey' }}>Preporuči MET aplikaciju svom prijatelju</Text>
+            <Text style={{ color: 'grey', fontSize: 13 }}>Preporuči MET aplikaciju svom prijatelju</Text>
           </View>
         </TouchableOpacity>
 
@@ -99,6 +99,13 @@ const styles = StyleSheet.create({
     paddingStart: 45,
     paddingEnd: 45,
     marginTop: 7.5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
   },
   button: {
     backgroundColor: 'white',
@@ -110,6 +117,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 7.5,
     marginBottom: 7.5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+
+    elevation: 5,
   },
   buttonIcon: {
     width: 40,
