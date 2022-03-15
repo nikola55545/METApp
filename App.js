@@ -65,7 +65,7 @@ const App = () => {
         <Stack.Screen
           name="OAplikaciji"
           component={OAplikaciji}
-          options={{ headerShown: true, headerBackTitle: "Nazad", headerStyle:{backgroundColor: '#c9093d'}, headerTintColor: 'white' }}
+          options={{ headerShown: true, headerBackTitle: "Nazad", headerStyle:{backgroundColor: '#c9093d'}, headerTintColor: 'white', title: 'O Aplikaciji' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
