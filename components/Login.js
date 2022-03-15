@@ -45,7 +45,7 @@ export default class Login extends Component {
       headers: { "Content-Type": "text/html" },
       body: "email=" + this.state.email + "&password=" + this.state.password,
     }).then(() => {
-      this.props.navigation.navigate("Pocetna"); // <---------- Ovde izvedi magiju kako znas i umes
+      this.props.navigation.replace("Pocetna"); // <---------- Ovde izvedi magiju kako znas i umes
     });
   };
 

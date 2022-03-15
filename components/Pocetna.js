@@ -154,11 +154,17 @@ export default class Pocetna extends Component {
         style={{
           flex: 1,
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-start",
         }}
       >
         <StatusBar style="auto" />
-        <View style={{ backgroundColor: "#c9093d" }}>
+        <View
+          style={{
+            backgroundColor: "#c9093d",
+            paddingTop: 75,
+            paddingBottom: 20,
+          }}
+        >
           <View style={styles.menuButtonsMainPage}>
             <TouchableOpacity
               onPress={({ navigation }) => {
@@ -179,8 +185,17 @@ export default class Pocetna extends Component {
               />
             </TouchableOpacity>
           </View>
-          <Text style={{ color: "white", fontSize: 20 }}>DOBRO DOŠLI</Text>
-          <Text style={{ color: "white", fontSize: 30, fontWeight: "bold" }}>
+          <Text style={{ color: "white", fontSize: 20, marginLeft: 20 }}>
+            DOBRO DOŠLI
+          </Text>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontWeight: "bold",
+              marginLeft: 20,
+            }}
+          >
             Ime Prezime
           </Text>
         </View>
