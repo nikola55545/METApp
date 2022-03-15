@@ -35,12 +35,6 @@ export default class Pocetna extends Component {
   state = {
     visibleModal: null,
   };
-
-  teraj = ({ navigation }) => {
-    this.props.navigation.navigate("OAplikaciji");
-    this.setState({ visibleModal: null });
-  };
-
   _renderOptionButton = (text, onPress) => (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
@@ -61,9 +55,16 @@ export default class Pocetna extends Component {
             <Image source={LogoIcon} style={styles.logoIcon} />
           </View>
           <View style={styles.menuButtons}>
-            <TouchableOpacity>
+            {/* -----------------------------------------------------------Podesavanja */}
+            <TouchableOpacity
+              onPress={({ navigation }) => {
+                this.props.navigation.navigate("Podesavanja");
+                this.setState({ visibleModal: null });
+              }}
+            >
               <Image source={SettingsIcon} style={{ width: 40, height: 40 }} />
             </TouchableOpacity>
+            {/* -----------------------------------------------------------Close */}
             <TouchableOpacity
               onPress={() => this.setState({ visibleModal: null })}
             >
@@ -75,24 +76,43 @@ export default class Pocetna extends Component {
           </View>
         </View>
         <View style={styles.gridWrap}>
-          <TouchableOpacity onPress={this.teraj}>
+          {/* -----------------------------------------------------------ISUM */}
+          <TouchableOpacity
+            onPress={({ navigation }) => {
+              this.props.navigation.navigate("Isum");
+              this.setState({ visibleModal: null });
+            }}
+          >
             <View style={styles.button}>
               <Image source={ISUMIcon} style={styles.optionButtons} />
               <Text>ISUM</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.teraj}>
+          {/* -----------------------------------------------------------LAMS */}
+          <TouchableOpacity
+            onPress={({ navigation }) => {
+              this.props.navigation.navigate("Lams");
+              this.setState({ visibleModal: null });
+            }}
+          >
             <View style={styles.button}>
               <Image source={LAMSIcon} style={styles.optionButtons} />
               <Text>LAMS</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.teraj}>
+          {/* -----------------------------------------------------------ZIMBRA */}
+          <TouchableOpacity
+            onPress={({ navigation }) => {
+              this.props.navigation.navigate("Zimbra");
+              this.setState({ visibleModal: null });
+            }}
+          >
             <View style={styles.button}>
               <Image source={ZIMBRAIcon} style={styles.optionButtons} />
               <Text>ZIMBRA</Text>
             </View>
           </TouchableOpacity>
+          {/* -----------------------------------------------------------Obavestenja */}
           <TouchableOpacity
             onPress={({ navigation }) => {
               this.props.navigation.navigate("Obavestenja");
@@ -104,6 +124,7 @@ export default class Pocetna extends Component {
               <Text>OBAVEŠTENJA</Text>
             </View>
           </TouchableOpacity>
+          {/* -----------------------------------------------------------Popusti */}
           <TouchableOpacity
             onPress={({ navigation }) => {
               this.props.navigation.navigate("Popusti");
@@ -115,6 +136,7 @@ export default class Pocetna extends Component {
               <Text>POPUSTI</Text>
             </View>
           </TouchableOpacity>
+          {/* -----------------------------------------------------------Kontakt */}
           <TouchableOpacity onPress={this.teraj}>
             <View style={styles.button}>
               <Image source={KONTAKTIcon} style={styles.optionButtons} />
@@ -126,16 +148,43 @@ export default class Pocetna extends Component {
       </ImageBackground>
     </View>
   );
-  //-----------------------------------------------------------------------
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <StatusBar style="auto" />
-        <Text>Pozdrav sa Pocetna.js!</Text>
+        <View style={{ backgroundColor: "#c9093d" }}>
+          <View style={styles.menuButtonsMainPage}>
+            <TouchableOpacity
+              onPress={({ navigation }) => {
+                this.props.navigation.navigate("Podesavanja");
+                this.setState({ visibleModal: null });
+              }}
+            >
+              <Image source={SettingsIcon} style={{ width: 40, height: 40 }} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({ visibleModal: 1 });
+              }}
+            >
+              <Image
+                source={MenuIcon}
+                style={{ width: 40, height: 45, marginLeft: 20 }}
+              />
+            </TouchableOpacity>
+          </View>
+          <Text style={{ color: "white", fontSize: 20 }}>DOBRO DOŠLI</Text>
+          <Text style={{ color: "white", fontSize: 30, fontWeight: "bold" }}>
+            Ime Prezime
+          </Text>
+        </View>
 
-        {this._renderOptionButton("Meni", () =>
-          this.setState({ visibleModal: 1 })
-        )}
         <Modal
           isVisible={this.state.visibleModal === 1}
           animationIn={"slideInRight"}
@@ -188,6 +237,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginRight: 20,
     flex: 1,
+  },
+  menuButtonsMainPage: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    paddingRight: 30,
   },
   optionButtons: {
     resizeMode: "contain",
