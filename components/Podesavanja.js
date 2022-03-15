@@ -35,7 +35,7 @@ export default class Podesavanja extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "flex-start", paddingTop: 10 }}>
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
 
         <View style={styles.button}>
           <Switch

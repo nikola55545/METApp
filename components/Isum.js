@@ -20,7 +20,7 @@ export default class Isum extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
         <WebView
           source={{
             uri: "https://isum.metropolitan.ac.rs/isum=1646237280032/",

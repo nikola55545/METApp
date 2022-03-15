@@ -20,7 +20,7 @@ export default class Zimbra extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
         <WebView
           source={{
             uri: "https://mail.metropolitan.ac.rs/",

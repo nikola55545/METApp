@@ -34,50 +34,38 @@ const App = () => {
         <Stack.Screen
           name="Obavestenja"
           component={Obavestenja}
-          options={{ headerShown: true, headerBackTitle: "Nazad" }}
+          options={{ headerShown: true, headerBackTitle: "Nazad", headerStyle:{backgroundColor: '#c9093d'}, headerTintColor: 'white' }}
         />
         <Stack.Screen
           name="Popusti"
           component={Popusti}
-          options={{ headerShown: true, headerBackTitle: "Nazad" }}
+          options={{ headerShown: true, headerBackTitle: "Nazad", headerStyle:{backgroundColor: '#c9093d'}, headerTintColor: 'white' }}
         />
         <Stack.Screen
           name="Isum"
           component={Isum}
-          options={{
-            headerShown: true,
-            title: "ISUM",
-            headerBackTitle: "Nazad",
-          }}
+          options={{ headerShown: true, headerBackTitle: "Nazad", headerStyle:{backgroundColor: '#c9093d'}, headerTintColor: 'white' }}
         />
         <Stack.Screen
           name="Lams"
           component={Lams}
-          options={{
-            headerShown: true,
-            title: "LAMS",
-            headerBackTitle: "Nazad",
-          }}
+          options={{ headerShown: true, headerBackTitle: "Nazad", headerStyle:{backgroundColor: '#c9093d'}, headerTintColor: 'white' }}
         />
         <Stack.Screen
           name="Zimbra"
           component={Zimbra}
-          options={{ headerShown: true, headerBackTitle: "Nazad" }}
+          options={{ headerShown: true, headerBackTitle: "Nazad", headerStyle:{backgroundColor: '#c9093d'}, headerTintColor: 'white' }}
         />
         <Stack.Screen
           name="Podesavanja"
           component={Podesavanja}
-          options={{ headerShown: true, headerBackTitle: "Nazad" }}
+          options={{ headerShown: true, headerBackTitle: "Nazad", headerStyle:{backgroundColor: '#c9093d'}, headerTintColor: 'white' }}
         />
         
         <Stack.Screen
           name="OAplikaciji"
           component={OAplikaciji}
-          options={{
-            headerShown: true,
-            title: "O Aplikaciji",
-            headerBackTitle: "Nazad",
-          }}
+          options={{ headerShown: true, headerBackTitle: "Nazad", headerStyle:{backgroundColor: '#c9093d'}, headerTintColor: 'white' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -20,7 +20,7 @@ export default class Popusti extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
         <WebView
           source={{ uri: "https://marketing.metropolitan.ac.rs/kuponi/" }}
           style={{ width: screenWidth, height: screenHeight }}
