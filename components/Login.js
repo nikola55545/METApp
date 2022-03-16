@@ -21,6 +21,10 @@ import backgroundImage from "../assets/bglogin.png";
 import user from "../assets/login-icons/ic_username.png";
 import password from "../assets/login-icons/ic_password.png";
 import banner from "../assets/banner.png";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { get } from "react-native/Libraries/Utilities/PixelRatio";
+
+const axios = require("axios").default;
 
 export default class Login extends Component {
   constructor() {
@@ -39,14 +43,64 @@ export default class Login extends Component {
     }
   }
 
-  submitForm = ({ navigation }) => {
-    fetch("https://webhook.site/e338abb6-7b0e-4563-8db9-584d183a97d4", {
-      method: "POST",
-      headers: { "Content-Type": "text/html" },
-      body: "email=" + this.state.email + "&password=" + this.state.password,
-    }).then(() => {
-      this.props.navigation.replace("Pocetna"); // <---------- Ovde izvedi magiju kako znas i umes
-    });
+  //Viktor kod
+  login = () => {
+    // DEV MODE:
+     this.props.navigation.navigate("Pocetna");
+    // SERVER MODE
+    // const baseURL = "http://109.92.116.113:5000/";
+    // axios
+    //   .post(
+    //     baseURL,
+    //     { email: this.state.email, password: this.state.password },
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   )
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     if (response.data.success) {
+    //       this.storeData(this.state.email, this.state.password);
+    //       this.props.navigation.navigate("Pocetna");
+    //     } else {
+    //       alert(response.data.message);
+    //     }
+    //   });
+  };
+
+  storeData = async (email, password) => {
+    try {
+      await AsyncStorage.setItem("email", this.state.email);
+      await AsyncStorage.setItem("password", this.state.password);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  //UBACUJE SACUVANE PODATKE U STATE
+  getData = async () => {
+    try {
+      e = await AsyncStorage.getItem("email");
+      p = await AsyncStorage.getItem("password");
+      this.setState({ email: e });
+      this.setState({ password: p });
+
+      console.log(this.state.email);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // POZVATI OVU FUNKCIJU JEDNOM KAD SE POKRENE APP
+  autoLogin = async () => {
+    await this.getData();
+    console.log("E" + this.state.email);
+    console.log("P" + this.state.password);
+    if (this.state.email != "" && this.state.password != "") {
+      this.login();
+    }
   };
 
   render() {
@@ -85,11 +139,15 @@ export default class Login extends Component {
               />
             </View>
 
+            <TouchableOpacity style={styles.loginButton} onPress={this.login}>
+              <Text style={{ color: "#c9093d" }}>PRIJAVITE SE</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity
               style={styles.loginButton}
-              onPress={this.submitForm}
+              onPress={this.autoLogin}
             >
-              <Text style={{ color: "#c9093d" }}>PRIJAVITE SE</Text>
+              <Text style={{ color: "#c9093d" }}>AUTO LOGIN</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
