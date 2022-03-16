@@ -13,6 +13,7 @@ import Isum from "./components/Isum";
 import Lams from "./components/Lams";
 import Zimbra from "./components/Zimbra";
 import Podesavanja from "./components/Podesavanja";
+import Kontakt from "./components/Kontakt";
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +67,11 @@ const App = () => {
           name="OAplikaciji"
           component={OAplikaciji}
           options={{ headerShown: true, headerBackTitle: "Nazad", headerStyle:{backgroundColor: '#c9093d'}, headerTintColor: 'white', title: 'O Aplikaciji' }}
+        />
+        <Stack.Screen
+          name="Kontakt"
+          component={Kontakt}
+          options={{ headerShown: true, headerBackTitle: "Nazad", headerStyle:{backgroundColor: '#c9093d'}, headerTintColor: 'white' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

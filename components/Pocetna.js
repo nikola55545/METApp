@@ -137,7 +137,10 @@ export default class Pocetna extends Component {
             </View>
           </TouchableOpacity>
           {/* -----------------------------------------------------------Kontakt */}
-          <TouchableOpacity onPress={this.teraj}>
+          <TouchableOpacity onPress={({ navigation }) => {
+              this.props.navigation.navigate("Kontakt");
+              this.setState({ visibleModal: null });
+            }}>
             <View style={styles.button}>
               <Image source={KONTAKTIcon} style={styles.optionButtons} />
               <Text>KONTAKT</Text>
