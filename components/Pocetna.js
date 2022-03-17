@@ -78,7 +78,7 @@ export default class Pocetna extends Component {
             >
               <Image
                 source={CloseIcon}
-                style={{ width: 40, height: 40, marginLeft: 20 }}
+                style={{ width: 40, height: 40, marginLeft: 30 }}
               />
             </TouchableOpacity>
           </View>
@@ -194,7 +194,7 @@ export default class Pocetna extends Component {
                   >
                     <Image
                       source={MenuIcon}
-                      style={{ width: 40, height: 45, marginLeft: 40 }}
+                      style={{ width: 40, height: 45, marginLeft: 30 }}
                     />
                   </TouchableOpacity>
                 </View>
@@ -461,7 +461,7 @@ const styles = StyleSheet.create({
   },
   topIconsContainer: {
     flexDirection: "row",
-    marginTop: 70,
+    marginTop: 80,
     marginBottom: 20,
   },
   logoIcon: {
