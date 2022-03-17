@@ -138,9 +138,9 @@ export default class Pocetna extends Component {
           </TouchableOpacity>
           {/* -----------------------------------------------------------Kontakt */}
           <TouchableOpacity onPress={({ navigation }) => {
-              this.props.navigation.navigate("Kontakt");
-              this.setState({ visibleModal: null });
-            }}>
+            this.props.navigation.navigate("Kontakt");
+            this.setState({ visibleModal: null });
+          }}>
             <View style={styles.button}>
               <Image source={KONTAKTIcon} style={styles.optionButtons} />
               <Text>KONTAKT</Text>
@@ -161,49 +161,71 @@ export default class Pocetna extends Component {
         }}
       >
         <StatusBar style="light" />
-        <View
-          style={{
-            backgroundColor: "#c9093d",
-            paddingTop: 75,
-            paddingBottom: 20,
-          }}
-        >
-          <View style={styles.menuButtonsMainPage}>
-            <TouchableOpacity
-              onPress={({ navigation }) => {
-                this.props.navigation.navigate("Podesavanja");
-                this.setState({ visibleModal: null });
-              }}
-            >
-              <Image source={SettingsIcon} style={{ width: 40, height: 40 }} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({ visibleModal: 1 });
-              }}
-            >
-              <Image
-                source={MenuIcon}
-                style={{ width: 40, height: 45, marginLeft: 20 }}
-              />
-            </TouchableOpacity>
-          </View>
-          <Text style={{ color: "white", fontSize: 20, marginLeft: 20 }}>
-            DOBRO DOŠLI
-          </Text>
-          <Text
+        <ImageBackground source={StudentBg} style={styles.bgimage}>
+          <View
             style={{
-              color: "white",
-              fontSize: 30,
-              fontWeight: "bold",
-              marginLeft: 20,
+              paddingTop: 75,
+              paddingBottom: 20,
             }}
           >
-            Ime Prezime
-          </Text>
-        </View>
+            <View style={styles.menuButtonsMainPage}>
+              <TouchableOpacity
+                onPress={({ navigation }) => {
+                  this.props.navigation.navigate("Podesavanja");
+                  this.setState({ visibleModal: null });
+                }}
+              >
+                <Image source={SettingsIcon} style={{ width: 40, height: 40 }} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({ visibleModal: 1 });
+                }}
+              >
+                <Image
+                  source={MenuIcon}
+                  style={{ width: 40, height: 45, marginLeft: 20 }}
+                />
+              </TouchableOpacity>
+            </View>
+            <Text style={{ color: "white", fontSize: 20, marginLeft: 20 }}>
+              DOBRO DOŠLI
+            </Text>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 30,
+                fontWeight: "bold",
+                marginLeft: 20,
+              }}
+            >
+              Ime Prezime
+            </Text>
+          </View>
+        </ImageBackground>
 
-        <Text>Ovde ide ostalo</Text>
+
+        <View style={styles.unreadMailContainer}>
+
+          <Text style={styles.categoryTitle}># Nepročitanih poruka</Text>
+
+            <View style={styles.buttonMail}>
+              <Text style={styles.unreadTitle}>Mail naslov</Text>
+              <Text style={styles.unreadDesc}>Mail Desc</Text>
+              <Text style={styles.unreadDate}>Mail Date</Text>
+            </View>
+            <View style={styles.buttonMail}>
+              <Text style={styles.unreadTitle}>Mail naslov</Text>
+              <Text style={styles.unreadDesc}>Mail Desc</Text>
+              <Text style={styles.unreadDate}>Mail Date</Text>
+            </View>
+            <View style={styles.buttonMail}>
+              <Text style={styles.unreadTitle}>Mail naslov</Text>
+              <Text style={styles.unreadDesc}>Mail Desc</Text>
+              <Text style={styles.unreadDate}>Mail Date</Text>
+            </View>
+
+        </View>
 
         <Modal
           isVisible={this.state.visibleModal === 1}
@@ -233,6 +255,39 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.20,
     shadowRadius: 1.41,
+  },
+  unreadMailContainer:{
+    width: "100%",
+    height: "100%",
+    flex: 1, 
+    alignItems: "center",
+    marginTop: 15
+  },
+  categoryTitle:{
+    width: '90%',
+    fontSize: 17,
+    marginBottom: 5,
+    fontWeight: 'bold',
+  },
+  buttonMail: {
+    backgroundColor: 'white',
+    flexDirection: 'column',
+    padding: 15,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    width: '90%',
+    borderRadius: 10,
+    marginTop: 7.5,
+    marginBottom: 7.5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+    elevation: 2,
+    elevation: 5,
   },
   modalContent: {
     backgroundColor: "#c9093d",
@@ -289,5 +344,19 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "center",
     marginTop: 30,
+  },
+  bgimage: {
+    alignItems: "center",
+    width: "100%",
+    height: 200,
+    resizeMode: "contain",
+  },
+  unreadTitle:{
+    color: '#c9093d',
+    fontWeight: 'bold',
+  },
+  unreadDesc:{},
+  unreadDate:{
+    color: '#c9093d',
   },
 });

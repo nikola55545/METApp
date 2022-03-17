@@ -25,10 +25,6 @@ export default class Podesavanja extends Component {
        switch2Value: false,
     }
  }
- componentDidMount(){
-  // this.myAction();
-  alert('Test');
-}
  toggleSwitch1 = (value) => {
     this.setState({switch1Value: value})
     console.log('Switch 1 is: ' + value)
