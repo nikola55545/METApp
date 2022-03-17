@@ -8,6 +8,7 @@ import {
   Image,
   ImageBackground,
   SafeAreaView,
+  ScrollView
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 
@@ -30,6 +31,13 @@ import ZIMBRAIcon from "../assets/icons/zimbra.png";
 import OBAVESTENJAIcon from "../assets/icons/obavestenja.png";
 import POPUSTIIcon from "../assets/icons/popusti.png";
 import KONTAKTIcon from "../assets/icons/kontakt.png";
+import PlaceholderImage from "../assets/placeholder.png"
+import FacebookIcon from '../assets/icons/fb.png';
+import ViberIcon from '../assets/icons/viber.png';
+import WhatsappIcon from '../assets/icons/whatsapp.png';
+import LinkedinIcon from '../assets/icons/linkedin.png';
+import InstagramIcon from '../assets/icons/instagram.png';
+import YoutubeIcon from '../assets/icons/yt.png';
 
 export default class Pocetna extends Component {
   state = {
@@ -161,71 +169,170 @@ export default class Pocetna extends Component {
         }}
       >
         <StatusBar style="light" />
-        <ImageBackground source={StudentBg} style={styles.bgimage}>
-          <View
-            style={{
-              paddingTop: 75,
-              paddingBottom: 20,
-            }}
-          >
-            <View style={styles.menuButtonsMainPage}>
-              <TouchableOpacity
-                onPress={({ navigation }) => {
-                  this.props.navigation.navigate("Podesavanja");
-                  this.setState({ visibleModal: null });
+        <View style={{ width: '100%', height: '100%' }}>
+          <ScrollView>
+            <ImageBackground source={StudentBg} style={styles.bgimage}>
+              <View
+                style={{
+                  paddingTop: 75,
+                  paddingBottom: 20,
                 }}
               >
-                <Image source={SettingsIcon} style={{ width: 40, height: 40 }} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  this.setState({ visibleModal: 1 });
-                }}
-              >
-                <Image
-                  source={MenuIcon}
-                  style={{ width: 40, height: 45, marginLeft: 20 }}
-                />
-              </TouchableOpacity>
+                <View style={styles.menuButtonsMainPage}>
+                  <TouchableOpacity
+                    onPress={({ navigation }) => {
+                      this.props.navigation.navigate("Podesavanja");
+                      this.setState({ visibleModal: null });
+                    }}
+                  >
+                    <Image source={SettingsIcon} style={{ width: 40, height: 40 }} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.setState({ visibleModal: 1 });
+                    }}
+                  >
+                    <Image
+                      source={MenuIcon}
+                      style={{ width: 40, height: 45, marginLeft: 40 }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <Text style={{ color: "white", fontSize: 20, marginLeft: 20 }}>
+                  DOBRO DOŠLI
+                </Text>
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 30,
+                    fontWeight: "bold",
+                    marginLeft: 20,
+                  }}
+                >
+                  Ime Prezime
+                </Text>
+              </View>
+            </ImageBackground>
+
+            <View style={styles.unreadMailContainer}>
+              <Text style={styles.categoryTitle}># Nepročitanih poruka</Text>
+              <View style={styles.buttonMail}>
+                <Text style={styles.unreadTitle}>Mail naslov</Text>
+                <Text style={styles.unreadDesc}>Mail Desc</Text>
+                <Text style={styles.unreadDate}>Mail Date</Text>
+              </View>
+              <View style={styles.buttonMail}>
+                <Text style={styles.unreadTitle}>Mail naslov</Text>
+                <Text style={styles.unreadDesc}>Mail Desc</Text>
+                <Text style={styles.unreadDate}>Mail Date</Text>
+              </View>
+              <View style={styles.buttonMail}>
+                <Text style={styles.unreadTitle}>Mail naslov</Text>
+                <Text style={styles.unreadDesc}>Mail Desc</Text>
+                <Text style={styles.unreadDate}>Mail Date</Text>
+              </View>
+              <View style={{ alignItems: 'flex-start', justifyContent: 'flex-start', width: '90%' }}>
+                <TouchableOpacity style={styles.checkMailButton}>
+                  <Text style={{ color: 'white' }}>PROVERI POSTU</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <Text style={{ color: "white", fontSize: 20, marginLeft: 20 }}>
-              DOBRO DOŠLI
-            </Text>
-            <Text
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontWeight: "bold",
-                marginLeft: 20,
-              }}
-            >
-              Ime Prezime
-            </Text>
-          </View>
-        </ImageBackground>
 
-
-        <View style={styles.unreadMailContainer}>
-
-          <Text style={styles.categoryTitle}># Nepročitanih poruka</Text>
-
-            <View style={styles.buttonMail}>
-              <Text style={styles.unreadTitle}>Mail naslov</Text>
-              <Text style={styles.unreadDesc}>Mail Desc</Text>
-              <Text style={styles.unreadDate}>Mail Date</Text>
-            </View>
-            <View style={styles.buttonMail}>
-              <Text style={styles.unreadTitle}>Mail naslov</Text>
-              <Text style={styles.unreadDesc}>Mail Desc</Text>
-              <Text style={styles.unreadDate}>Mail Date</Text>
-            </View>
-            <View style={styles.buttonMail}>
-              <Text style={styles.unreadTitle}>Mail naslov</Text>
-              <Text style={styles.unreadDesc}>Mail Desc</Text>
-              <Text style={styles.unreadDate}>Mail Date</Text>
+            <View style={styles.unreadMailContainer}>
+              <Text style={styles.categoryTitle}>Nova Obaveštenja</Text>
+              <View style={styles.buttonMail}>
+                <Text style={styles.unreadTitle}>Obavestenje naslov</Text>
+                <Text style={styles.unreadDesc}>Obavestenje Desc</Text>
+                <Text style={styles.unreadDate}>Obavestenje Date</Text>
+              </View>
+              <View style={styles.buttonMail}>
+                <Text style={styles.unreadTitle}>Obavestenje naslov</Text>
+                <Text style={styles.unreadDesc}>Obavestenje Desc</Text>
+                <Text style={styles.unreadDate}>Obavestenje Date</Text>
+              </View>
+              <View style={styles.buttonMail}>
+                <Text style={styles.unreadTitle}>Obavestenje naslov</Text>
+                <Text style={styles.unreadDesc}>Obavestenje Desc</Text>
+                <Text style={styles.unreadDate}>Obavestenje Date</Text>
+              </View>
             </View>
 
+            <View style={styles.unreadMailContainer}>
+              <Text style={styles.categoryTitle}>Dogadjaji</Text>
+              <ScrollView horizontal={true} style={styles.horizontalContentView}>
+
+                <TouchableOpacity style={styles.eventContainer}>
+                  <Image source={PlaceholderImage} style={styles.eventImage} />
+                  <Text>Event Desc</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.eventContainer}>
+                  <Image source={PlaceholderImage} style={styles.eventImage} />
+                  <Text>Event Desc</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.eventContainer}>
+                  <Image source={PlaceholderImage} style={styles.eventImage} />
+                  <Text>Event Desc</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.eventContainer}>
+                  <Image source={PlaceholderImage} style={styles.eventImage} />
+                  <Text>Event Desc</Text>
+                </TouchableOpacity>
+
+              </ScrollView>
+              <View style={{ alignItems: 'flex-start', justifyContent: 'flex-start', width: '90%' }}>
+                <TouchableOpacity style={styles.checkMailButton}>
+                  <Text style={{ color: 'white' }}>SVI DOGAĐAJI</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={styles.socialContainer}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                <Text style={{ marginLeft: '5%', color: '#262626', fontSize: 17 }}>Pratite nas</Text>
+
+                <View style={{ flexDirection: 'row', marginLeft: 'auto', marginRight: '5%' }}>
+                  <TouchableOpacity>
+                    <Image source={FacebookIcon} style={styles.circularImage} />
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Image source={InstagramIcon} style={styles.circularImage} />
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Image source={YoutubeIcon} style={styles.circularImage} />
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Image source={LinkedinIcon} style={styles.circularImage} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <View style={styles.gridWrapInstagram}>
+                <TouchableOpacity>
+                  <Image source={PlaceholderImage} style={styles.igPhoto} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image source={PlaceholderImage} style={styles.igPhoto} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image source={PlaceholderImage} style={styles.igPhoto} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image source={PlaceholderImage} style={styles.igPhoto} />
+                </TouchableOpacity>
+
+              </View>
+
+              <Text style={styles.metStudentsTextRed}>Powered by MET Studenti</Text>
+
+            </View>
+
+          </ScrollView>
         </View>
+
 
         <Modal
           isVisible={this.state.visibleModal === 1}
@@ -256,18 +363,40 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.20,
     shadowRadius: 1.41,
   },
-  unreadMailContainer:{
+  horizontalContentView: {
+    flex: 1,
+    paddingTop: 10
+  },
+  unreadMailContainer: {
     width: "100%",
     height: "100%",
-    flex: 1, 
+    flex: 1,
     alignItems: "center",
     marginTop: 15
   },
-  categoryTitle:{
+  categoryTitle: {
     width: '90%',
     fontSize: 17,
     marginBottom: 5,
     fontWeight: 'bold',
+  },
+  eventContainer: {
+    backgroundColor: 'white',
+    padding: 10,
+    margin: 5
+  },
+  eventImage: {
+    width: 220,
+    height: 123.75
+  },
+  circularImage: {
+    borderRadius: 400 / 2,
+    width: 50,
+    height: 50,
+    marginStart: 5,
+  },
+  socialContainer: {
+    paddingTop: 15
   },
   buttonMail: {
     backgroundColor: 'white',
@@ -288,6 +417,15 @@ const styles = StyleSheet.create({
     shadowRadius: 1.41,
     elevation: 2,
     elevation: 5,
+  },
+  checkMailButton: {
+    backgroundColor: '#c9093d',
+    paddingTop: 12,
+    paddingBottom: 12,
+    paddingStart: 25,
+    paddingEnd: 25,
+    borderRadius: 400 / 2,
+    marginTop: 10
   },
   modalContent: {
     backgroundColor: "#c9093d",
@@ -339,24 +477,46 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     marginTop: 30,
   },
+  gridWrapInstagram: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 15,
+  },
   metStudentsText: {
     color: "white",
     width: "100%",
     textAlign: "center",
     marginTop: 30,
   },
+  metStudentsTextRed: {
+    color: "#c9093d",
+    width: "100%",
+    textAlign: "center",
+    marginTop: 25,
+    marginBottom: 35,
+    fontSize: 15
+  },
   bgimage: {
     alignItems: "center",
     width: "100%",
-    height: 200,
-    resizeMode: "contain",
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    overflow: "hidden",
   },
-  unreadTitle:{
+  unreadTitle: {
     color: '#c9093d',
     fontWeight: 'bold',
   },
-  unreadDesc:{},
-  unreadDate:{
+  unreadDesc: {},
+  unreadDate: {
     color: '#c9093d',
+  },
+  igPhoto: {
+    width: 160,
+    height: 160,
+    margin: 6,
+    borderRadius: 7
   },
 });
