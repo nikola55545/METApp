@@ -18,31 +18,36 @@ import ShareIcon from '../assets/icons/info.png';
 import InfoIcon from '../assets/icons/share.png';
 
 export default class Podesavanja extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super();
     this.state = {
-      activeSwitch: null,
+       switch1Value: false,
+       switch2Value: false,
     }
-  }
-  toggleSwitch = (switchNumber) => {
-    this.setState({
-      activeSwitch: switchNumber === this.state.activeSwitch ? null : switchNumber
-    })
-  };
-  switchOne = (value) => { this.toggleSwitch(1) };
-  switchTwo = (value) => { this.toggleSwitch(2) };
+ }
+ componentDidMount(){
+  // this.myAction();
+  alert('Test');
+}
+ toggleSwitch1 = (value) => {
+    this.setState({switch1Value: value})
+    console.log('Switch 1 is: ' + value)
+ }
+ toggleSwitch2 = (value) => {
+  this.setState({switch2Value: value})
+  console.log('Switch 2 is: ' + value)
+}
 
   render() {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "flex-start", paddingTop: 10 }}>
         <StatusBar style="light" />
-
         <View style={styles.button}>
           <Switch
             trackColor={{ false: "#767577", true: "#c9093d" }}
             ios_backgroundColor="#3e3e3e"
-            onValueChange={this.switchOne}
-            value={this.state.activeSwitch === 1}
+            onValueChange={this.toggleSwitch1}
+            value={this.state.switch1Value}
             style={styles.switch}
           />
           <View>
@@ -52,11 +57,11 @@ export default class Podesavanja extends Component {
         </View>
 
         <View style={styles.button}>
-          <Switch
+        <Switch
             trackColor={{ false: "#767577", true: "#c9093d" }}
             ios_backgroundColor="#3e3e3e"
-            onValueChange={this.switchTwo}
-            value={this.state.activeSwitch === 2}
+            onValueChange={this.toggleSwitch2}
+            value={this.state.switch2Value}
             style={styles.switch}
           />
           <View>

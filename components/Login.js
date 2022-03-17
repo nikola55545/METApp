@@ -35,6 +35,11 @@ export default class Login extends Component {
     };
   }
 
+  componentDidMount(){
+    // this.myAction();
+    alert('Test');
+  }
+
   updateValue(text, field) {
     if (field == "email") {
       this.setState({ email: text });
