@@ -212,6 +212,9 @@ export default class Pocetna extends Component {
                   Ime Prezime
                 </Text>
               </View>
+              <View style={styles.messageContainer}>
+                <Text style={{fontSize: 15}}>Poruka</Text>
+              </View>
             </ImageBackground>
 
             <View style={styles.unreadMailContainer}>
@@ -258,27 +261,27 @@ export default class Pocetna extends Component {
             </View>
 
             <View style={styles.unreadMailContainer}>
-              <Text style={styles.categoryTitle}>Dogadjaji</Text>
+              <Text style={styles.categoryTitle}>Događaji</Text>
               <ScrollView horizontal={true} style={styles.horizontalContentView}>
 
                 <TouchableOpacity style={styles.eventContainer}>
                   <Image source={PlaceholderImage} style={styles.eventImage} />
-                  <Text>Event Desc</Text>
+                  <Text style={styles.eventText}>Event Desc</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.eventContainer}>
                   <Image source={PlaceholderImage} style={styles.eventImage} />
-                  <Text>Event Desc</Text>
+                  <Text style={styles.eventText}>Event Desc</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.eventContainer}>
                   <Image source={PlaceholderImage} style={styles.eventImage} />
-                  <Text>Event Desc</Text>
+                  <Text style={styles.eventText}>Event Desc</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.eventContainer}>
                   <Image source={PlaceholderImage} style={styles.eventImage} />
-                  <Text>Event Desc</Text>
+                  <Text style={styles.eventText}>Event Desc</Text>
                 </TouchableOpacity>
 
               </ScrollView>
@@ -382,12 +385,18 @@ const styles = StyleSheet.create({
   },
   eventContainer: {
     backgroundColor: 'white',
-    padding: 10,
-    margin: 5
+    padding: 0,
+    margin: 5,
+    borderRadius: 10
   },
   eventImage: {
     width: 220,
-    height: 123.75
+    height: 123.75,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  eventText:{
+    margin: 10
   },
   circularImage: {
     borderRadius: 400 / 2,
@@ -417,6 +426,16 @@ const styles = StyleSheet.create({
     shadowRadius: 1.41,
     elevation: 2,
     elevation: 5,
+  },
+  messageContainer:{
+    width: '90%',
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingStart: 20,
+    paddingEnd: 20,
+    backgroundColor: 'white',
+    marginBottom: 30,
+    borderRadius: 10,
   },
   checkMailButton: {
     backgroundColor: '#c9093d',
