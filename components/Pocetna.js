@@ -494,7 +494,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     flexWrap: "wrap",
-    marginTop: 30,
+    marginTop: 10,
   },
   gridWrapInstagram: {
     justifyContent: "center",
