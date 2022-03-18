@@ -8,12 +8,16 @@ import {
   Image,
   ImageBackground,
   SafeAreaView,
-  ScrollView
+  ScrollView,
+  RefreshControl,
+  Dimensions,
+  LogBox 
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import AnimatedPullToRefresh from 'react-native-animated-pull-to-refresh'
 
 import Modal from "react-native-modal";
 
@@ -39,10 +43,15 @@ import LinkedinIcon from '../assets/icons/linkedin.png';
 import InstagramIcon from '../assets/icons/instagram.png';
 import YoutubeIcon from '../assets/icons/yt.png';
 
+const vw = Dimensions.get('window').width * 0.01
+const vh = Dimensions.get('window').height * 0.01
+
 export default class Pocetna extends Component {
   state = {
     visibleModal: null,
+    isRefreshing: false,
   };
+
   _renderOptionButton = (text, onPress) => (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
@@ -50,6 +59,24 @@ export default class Pocetna extends Component {
       </View>
     </TouchableOpacity>
   );
+
+  componentDidMount() {
+    setTimeout(this.onRefresh)
+  }
+  onRefresh = () => {
+    this.setState({ isRefreshing: true });
+    
+    //Ovde ide kod sta treba da se uradi
+
+    setTimeout(() => {
+      this.setState({ isRefreshing: false });
+    }, 10);
+
+  }
+
+  componentDidMount() {
+    LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
+}
 
   _renderModalContent = () => (
     <View style={styles.modalContent}>
@@ -170,170 +197,185 @@ export default class Pocetna extends Component {
       >
         <StatusBar style="light" />
         <View style={{ width: '100%', height: '100%' }}>
-          <ScrollView>
-            <ImageBackground source={StudentBg} style={styles.bgimage}>
-              <View
-                style={{
-                  paddingTop: 75,
-                  paddingBottom: 20,
-                }}
-              >
-                <View style={styles.menuButtonsMainPage}>
-                  <TouchableOpacity
-                    onPress={({ navigation }) => {
-                      this.props.navigation.navigate("Podesavanja");
-                      this.setState({ visibleModal: null });
+          <AnimatedPullToRefresh
+            isRefreshing={this.state.isRefreshing}
+            onRefresh={this.onRefresh}
+            pullHeight={10 * vh}
+            backgroundColor={'#c9093d'}
+            renderElement={
+              <ScrollView>
+                <ImageBackground source={StudentBg} style={styles.bgimage}>
+                  <View
+                    style={{
+                      paddingTop: 75,
+                      paddingBottom: 20,
                     }}
                   >
-                    <Image source={SettingsIcon} style={{ width: 40, height: 40 }} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.setState({ visibleModal: 1 });
-                    }}
-                  >
-                    <Image
-                      source={MenuIcon}
-                      style={{ width: 40, height: 45, marginLeft: 30 }}
-                    />
-                  </TouchableOpacity>
+                    <View style={styles.menuButtonsMainPage}>
+                      <TouchableOpacity
+                        onPress={({ navigation }) => {
+                          this.props.navigation.navigate("Podesavanja");
+                          this.setState({ visibleModal: null });
+                        }}
+                      >
+                        <Image source={SettingsIcon} style={{ width: 40, height: 40 }} />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => {
+                          this.setState({ visibleModal: 1 });
+                        }}
+                      >
+                        <Image
+                          source={MenuIcon}
+                          style={{ width: 40, height: 45, marginLeft: 30 }}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={{ color: "white", fontSize: 20, marginLeft: 20 }}>
+                      DOBRO DOŠLI
+                    </Text>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 30,
+                        fontWeight: "bold",
+                        marginLeft: 20,
+                      }}
+                    >
+                      Ime Prezime
+                    </Text>
+                  </View>
+                  <View style={styles.messageContainer}>
+                    <Text style={{ fontSize: 15 }}>Poruka</Text>
+                  </View>
+                </ImageBackground>
+
+                <View style={styles.unreadMailContainer}>
+                  <Text style={styles.categoryTitle}># Nepročitanih poruka</Text>
+                  <View style={styles.buttonMail}>
+                    <Text style={styles.unreadTitle}>Mail naslov</Text>
+                    <Text style={styles.unreadDesc}>Mail Desc</Text>
+                    <Text style={styles.unreadDate}>Mail Date</Text>
+                  </View>
+                  <View style={styles.buttonMail}>
+                    <Text style={styles.unreadTitle}>Mail naslov</Text>
+                    <Text style={styles.unreadDesc}>Mail Desc</Text>
+                    <Text style={styles.unreadDate}>Mail Date</Text>
+                  </View>
+                  <View style={styles.buttonMail}>
+                    <Text style={styles.unreadTitle}>Mail naslov</Text>
+                    <Text style={styles.unreadDesc}>Mail Desc</Text>
+                    <Text style={styles.unreadDate}>Mail Date</Text>
+                  </View>
+                  <View style={{ alignItems: 'flex-start', justifyContent: 'flex-start', width: '90%' }}>
+                    <TouchableOpacity style={styles.checkMailButton}>
+                      <Text style={{ color: 'white' }}>PROVERI POSTU</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                <Text style={{ color: "white", fontSize: 20, marginLeft: 20 }}>
-                  DOBRO DOŠLI
-                </Text>
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 30,
-                    fontWeight: "bold",
-                    marginLeft: 20,
-                  }}
-                >
-                  Ime Prezime
-                </Text>
-              </View>
-              <View style={styles.messageContainer}>
-                <Text style={{fontSize: 15}}>Poruka</Text>
-              </View>
-            </ImageBackground>
 
-            <View style={styles.unreadMailContainer}>
-              <Text style={styles.categoryTitle}># Nepročitanih poruka</Text>
-              <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>Mail naslov</Text>
-                <Text style={styles.unreadDesc}>Mail Desc</Text>
-                <Text style={styles.unreadDate}>Mail Date</Text>
-              </View>
-              <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>Mail naslov</Text>
-                <Text style={styles.unreadDesc}>Mail Desc</Text>
-                <Text style={styles.unreadDate}>Mail Date</Text>
-              </View>
-              <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>Mail naslov</Text>
-                <Text style={styles.unreadDesc}>Mail Desc</Text>
-                <Text style={styles.unreadDate}>Mail Date</Text>
-              </View>
-              <View style={{ alignItems: 'flex-start', justifyContent: 'flex-start', width: '90%' }}>
-                <TouchableOpacity style={styles.checkMailButton}>
-                  <Text style={{ color: 'white' }}>PROVERI POSTU</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+                <View style={styles.unreadMailContainer}>
+                  <Text style={styles.categoryTitle}>Nova Obaveštenja</Text>
+                  <View style={styles.buttonMail}>
+                    <Text style={styles.unreadTitle}>Obavestenje naslov</Text>
+                    <Text style={styles.unreadDesc}>Obavestenje Desc</Text>
+                    <Text style={styles.unreadDate}>Obavestenje Date</Text>
+                  </View>
+                  <View style={styles.buttonMail}>
+                    <Text style={styles.unreadTitle}>Obavestenje naslov</Text>
+                    <Text style={styles.unreadDesc}>Obavestenje Desc</Text>
+                    <Text style={styles.unreadDate}>Obavestenje Date</Text>
+                  </View>
+                  <View style={styles.buttonMail}>
+                    <Text style={styles.unreadTitle}>Obavestenje naslov</Text>
+                    <Text style={styles.unreadDesc}>Obavestenje Desc</Text>
+                    <Text style={styles.unreadDate}>Obavestenje Date</Text>
+                  </View>
+                </View>
 
-            <View style={styles.unreadMailContainer}>
-              <Text style={styles.categoryTitle}>Nova Obaveštenja</Text>
-              <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>Obavestenje naslov</Text>
-                <Text style={styles.unreadDesc}>Obavestenje Desc</Text>
-                <Text style={styles.unreadDate}>Obavestenje Date</Text>
-              </View>
-              <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>Obavestenje naslov</Text>
-                <Text style={styles.unreadDesc}>Obavestenje Desc</Text>
-                <Text style={styles.unreadDate}>Obavestenje Date</Text>
-              </View>
-              <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>Obavestenje naslov</Text>
-                <Text style={styles.unreadDesc}>Obavestenje Desc</Text>
-                <Text style={styles.unreadDate}>Obavestenje Date</Text>
-              </View>
-            </View>
+                <View style={styles.unreadMailContainer}>
+                  <Text style={styles.categoryTitle}>Događaji</Text>
+                  <ScrollView horizontal={true} style={styles.horizontalContentView}>
 
-            <View style={styles.unreadMailContainer}>
-              <Text style={styles.categoryTitle}>Događaji</Text>
-              <ScrollView horizontal={true} style={styles.horizontalContentView}>
+                    <TouchableOpacity style={styles.eventContainer}>
+                      <Image source={PlaceholderImage} style={styles.eventImage} />
+                      <Text style={styles.eventText}>Event Desc</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={PlaceholderImage} style={styles.eventImage} />
-                  <Text style={styles.eventText}>Event Desc</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.eventContainer}>
+                      <Image source={PlaceholderImage} style={styles.eventImage} />
+                      <Text style={styles.eventText}>Event Desc</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={PlaceholderImage} style={styles.eventImage} />
-                  <Text style={styles.eventText}>Event Desc</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.eventContainer}>
+                      <Image source={PlaceholderImage} style={styles.eventImage} />
+                      <Text style={styles.eventText}>Event Desc</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={PlaceholderImage} style={styles.eventImage} />
-                  <Text style={styles.eventText}>Event Desc</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.eventContainer}>
+                      <Image source={PlaceholderImage} style={styles.eventImage} />
+                      <Text style={styles.eventText}>Event Desc</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={PlaceholderImage} style={styles.eventImage} />
-                  <Text style={styles.eventText}>Event Desc</Text>
-                </TouchableOpacity>
+                  </ScrollView>
+                  <View style={{ alignItems: 'flex-start', justifyContent: 'flex-start', width: '90%' }}>
+                    <TouchableOpacity style={styles.checkMailButton}>
+                      <Text style={{ color: 'white' }}>SVI DOGAĐAJI</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                <View style={styles.socialContainer}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                    <Text style={{ marginLeft: '5%', color: '#262626', fontSize: 17 }}>Pratite nas</Text>
+
+                    <View style={{ flexDirection: 'row', marginLeft: 'auto', marginRight: '5%' }}>
+                      <TouchableOpacity>
+                        <Image source={FacebookIcon} style={styles.circularImage} />
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        <Image source={InstagramIcon} style={styles.circularImage} />
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        <Image source={YoutubeIcon} style={styles.circularImage} />
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        <Image source={LinkedinIcon} style={styles.circularImage} />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+
+                  <View style={styles.gridWrapInstagram}>
+                    <TouchableOpacity>
+                      <Image source={PlaceholderImage} style={styles.igPhoto} />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Image source={PlaceholderImage} style={styles.igPhoto} />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Image source={PlaceholderImage} style={styles.igPhoto} />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Image source={PlaceholderImage} style={styles.igPhoto} />
+                    </TouchableOpacity>
+
+                  </View>
+
+                  <Text style={styles.metStudentsTextRed}>Powered by MET Studenti</Text>
+
+                </View>
 
               </ScrollView>
-              <View style={{ alignItems: 'flex-start', justifyContent: 'flex-start', width: '90%' }}>
-                <TouchableOpacity style={styles.checkMailButton}>
-                  <Text style={{ color: 'white' }}>SVI DOGAĐAJI</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            }
+            duration={500}
+            pullAnimationSource={require('../assets/loading.json')}
+            startRefreshAnimationSource={require('../assets/loading.json')}
+            refreshAnimationSource={require('../assets/loading.json')}
+            endRefreshAnimationSource={require('../assets/loading.json')}
 
-            <View style={styles.socialContainer}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          />
 
-                <Text style={{ marginLeft: '5%', color: '#262626', fontSize: 17 }}>Pratite nas</Text>
-
-                <View style={{ flexDirection: 'row', marginLeft: 'auto', marginRight: '5%' }}>
-                  <TouchableOpacity>
-                    <Image source={FacebookIcon} style={styles.circularImage} />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image source={InstagramIcon} style={styles.circularImage} />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image source={YoutubeIcon} style={styles.circularImage} />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image source={LinkedinIcon} style={styles.circularImage} />
-                  </TouchableOpacity>
-                </View>
-              </View>
-
-              <View style={styles.gridWrapInstagram}>
-                <TouchableOpacity>
-                  <Image source={PlaceholderImage} style={styles.igPhoto} />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image source={PlaceholderImage} style={styles.igPhoto} />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image source={PlaceholderImage} style={styles.igPhoto} />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image source={PlaceholderImage} style={styles.igPhoto} />
-                </TouchableOpacity>
-
-              </View>
-
-              <Text style={styles.metStudentsTextRed}>Powered by MET Studenti</Text>
-
-            </View>
-
-          </ScrollView>
         </View>
 
 
@@ -395,7 +437,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
-  eventText:{
+  eventText: {
     margin: 10
   },
   circularImage: {
@@ -427,7 +469,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     elevation: 5,
   },
-  messageContainer:{
+  messageContainer: {
     width: '90%',
     paddingTop: 20,
     paddingBottom: 20,
