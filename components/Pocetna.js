@@ -15,9 +15,7 @@ import {
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import AnimatedPullToRefresh from 'react-native-animated-pull-to-refresh'
+import LottieView from 'lottie-react-native';
 
 import Modal from "react-native-modal";
 
@@ -45,6 +43,7 @@ import YoutubeIcon from '../assets/icons/yt.png';
 
 const vw = Dimensions.get('window').width * 0.01
 const vh = Dimensions.get('window').height * 0.01
+const fruitsAnimation = require('../assets/loading.json');
 
 export default class Pocetna extends Component {
   state = {
@@ -167,6 +166,11 @@ export default class Pocetna extends Component {
       </ImageBackground>
     </View>
   );
+
+  body = ({navigation}) => {
+    
+  }
+
   render() {
     return (
       <View
@@ -178,7 +182,11 @@ export default class Pocetna extends Component {
       >
         <StatusBar style="light" />
         <View style={{ width: '100%', height: '100%' }}>
-
+          <LottieView
+            autoPlay
+            style={styles.lottieView}
+            source={fruitsAnimation}
+          />
           <ScrollView>
             <ImageBackground source={StudentBg} style={styles.bgimage}>
               <View
@@ -546,5 +554,12 @@ const styles = StyleSheet.create({
     height: 160,
     margin: 6,
     borderRadius: 7
+  },
+  lottieView: {
+    height: 100,
+    position: 'absolute',
+    top: 5,
+    left: 0,
+    right: 0,
   },
 });
