@@ -336,7 +336,6 @@ export default class Pocetna extends Component {
           </ScrollView>
         </View>
 
-
         <Modal
           isVisible={this.state.visibleModal === 1}
           animationIn={"slideInRight"}
