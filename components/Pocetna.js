@@ -61,7 +61,8 @@ export default class Pocetna extends Component {
   );
 
   componentDidMount() {
-    setTimeout(this.onRefresh)
+    setTimeout(this.onRefresh);
+    LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
   }
   onRefresh = () => {
     this.setState({ isRefreshing: true });
@@ -73,10 +74,6 @@ export default class Pocetna extends Component {
     }, 10);
 
   }
-
-  componentDidMount() {
-    LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
-}
 
   _renderModalContent = () => (
     <View style={styles.modalContent}>
@@ -200,7 +197,7 @@ export default class Pocetna extends Component {
           <AnimatedPullToRefresh
             isRefreshing={this.state.isRefreshing}
             onRefresh={this.onRefresh}
-            pullHeight={10 * vh}
+            pullHeight={11 * vh}
             backgroundColor={'#c9093d'}
             renderElement={
               <ScrollView>

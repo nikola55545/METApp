@@ -28,6 +28,7 @@
     "react-native-gesture-handler": "^2.3.0",
     "react-native-modal": "^13.0.1",
     "react-native-pull-refresh": "^1.0.0",
+    "react-native-restart": "^0.0.24",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-switch": "^1.5.1",
