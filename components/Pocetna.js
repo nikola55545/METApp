@@ -8,12 +8,14 @@ import {
   Image,
   ImageBackground,
   SafeAreaView,
-  ScrollView
+  ScrollView,
+  RefreshControl,
+  Dimensions,
+  LogBox
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import LottieView from 'lottie-react-native';
 
 import Modal from "react-native-modal";
 
@@ -39,10 +41,15 @@ import LinkedinIcon from '../assets/icons/linkedin.png';
 import InstagramIcon from '../assets/icons/instagram.png';
 import YoutubeIcon from '../assets/icons/yt.png';
 
+const vw = Dimensions.get('window').width * 0.01
+const vh = Dimensions.get('window').height * 0.01
+const fruitsAnimation = require('../assets/loading.json');
+
 export default class Pocetna extends Component {
   state = {
     visibleModal: null,
   };
+
   _renderOptionButton = (text, onPress) => (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
@@ -159,6 +166,11 @@ export default class Pocetna extends Component {
       </ImageBackground>
     </View>
   );
+
+  body = ({navigation}) => {
+    
+  }
+
   render() {
     return (
       <View
@@ -170,6 +182,11 @@ export default class Pocetna extends Component {
       >
         <StatusBar style="light" />
         <View style={{ width: '100%', height: '100%' }}>
+          <LottieView
+            autoPlay
+            style={styles.lottieView}
+            source={fruitsAnimation}
+          />
           <ScrollView>
             <ImageBackground source={StudentBg} style={styles.bgimage}>
               <View
@@ -213,7 +230,7 @@ export default class Pocetna extends Component {
                 </Text>
               </View>
               <View style={styles.messageContainer}>
-                <Text style={{fontSize: 15}}>Poruka</Text>
+                <Text style={{ fontSize: 15 }}>Poruka</Text>
               </View>
             </ImageBackground>
 
@@ -334,8 +351,12 @@ export default class Pocetna extends Component {
             </View>
 
           </ScrollView>
+
+<<<<<<< HEAD
+=======
         </View>
 
+>>>>>>> 8523a4d3f2421aeac4f8447c12db0b19cbf33204
         <Modal
           isVisible={this.state.visibleModal === 1}
           animationIn={"slideInRight"}
@@ -394,7 +415,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
-  eventText:{
+  eventText: {
     margin: 10
   },
   circularImage: {
@@ -426,7 +447,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     elevation: 5,
   },
-  messageContainer:{
+  messageContainer: {
     width: '90%',
     paddingTop: 20,
     paddingBottom: 20,
@@ -493,7 +514,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     flexWrap: "wrap",
-    marginTop: 30,
+    marginTop: 10,
   },
   gridWrapInstagram: {
     justifyContent: "center",
@@ -536,5 +557,12 @@ const styles = StyleSheet.create({
     height: 160,
     margin: 6,
     borderRadius: 7
+  },
+  lottieView: {
+    height: 100,
+    position: 'absolute',
+    top: 5,
+    left: 0,
+    right: 0,
   },
 });

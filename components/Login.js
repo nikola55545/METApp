@@ -46,7 +46,7 @@ export default class Login extends Component {
   //Viktor kod
   login = () => {
     // DEV MODE:
-     this.props.navigation.navigate("Pocetna");
+     this.props.navigation.replace("Pocetna");
     // SERVER MODE
     // const baseURL = "http://109.92.116.113:5000/";
     // axios

@@ -6,6 +6,7 @@ import {
   Button,
   TouchableOpacity,
   Dimensions,
+  LogBox
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -17,8 +18,10 @@ var screenWidth = Dimensions.get("window").width;
 var screenHeight = Dimensions.get("window").height;
 
 export default class Zimbra extends Component {
+
   render() {
     return (
+
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <StatusBar style="light" />
         <WebView
@@ -28,6 +31,7 @@ export default class Zimbra extends Component {
           style={{ width: screenWidth, height: screenHeight }}
         />
       </View>
+
     );
   }
 }
