@@ -11,11 +11,12 @@ import {
   ScrollView,
   RefreshControl,
   Dimensions,
-  LogBox
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 
-import LottieView from 'lottie-react-native';
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import AnimatedPullToRefresh from 'react-native-animated-pull-to-refresh'
 
 import Modal from "react-native-modal";
 
@@ -43,11 +44,11 @@ import YoutubeIcon from '../assets/icons/yt.png';
 
 const vw = Dimensions.get('window').width * 0.01
 const vh = Dimensions.get('window').height * 0.01
-const fruitsAnimation = require('../assets/loading.json');
 
 export default class Pocetna extends Component {
   state = {
     visibleModal: null,
+    refreshing: false,
   };
 
   _renderOptionButton = (text, onPress) => (
@@ -167,8 +168,13 @@ export default class Pocetna extends Component {
     </View>
   );
 
-  body = ({navigation}) => {
-    
+  _onRefresh() {
+    this.setState({refreshing: true});
+
+    // Neki kod pa then this.setState({refreshing: false});
+    setTimeout(() => {
+      this.setState({refreshing: false});
+    }, 1000)
   }
 
   render() {
@@ -182,12 +188,10 @@ export default class Pocetna extends Component {
       >
         <StatusBar style="light" />
         <View style={{ width: '100%', height: '100%' }}>
-          <LottieView
-            autoPlay
-            style={styles.lottieView}
-            source={fruitsAnimation}
-          />
-          <ScrollView>
+
+          <ScrollView refreshControl={
+            <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />
+          }>
             <ImageBackground source={StudentBg} style={styles.bgimage}>
               <View
                 style={{
@@ -352,11 +356,9 @@ export default class Pocetna extends Component {
 
           </ScrollView>
 
-<<<<<<< HEAD
-=======
         </View>
 
->>>>>>> 8523a4d3f2421aeac4f8447c12db0b19cbf33204
+
         <Modal
           isVisible={this.state.visibleModal === 1}
           animationIn={"slideInRight"}
@@ -557,12 +559,5 @@ const styles = StyleSheet.create({
     height: 160,
     margin: 6,
     borderRadius: 7
-  },
-  lottieView: {
-    height: 100,
-    position: 'absolute',
-    top: 5,
-    left: 0,
-    right: 0,
   },
 });
