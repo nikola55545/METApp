@@ -6,7 +6,9 @@ import {
   Button,
   TouchableOpacity,
   Dimensions,
-  LogBox
+  LogBox,
+  RefreshControl,
+  ScrollView,
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -18,18 +20,32 @@ var screenWidth = Dimensions.get("window").width;
 var screenHeight = Dimensions.get("window").height;
 
 export default class Zimbra extends Component {
+  state = {
+    refreshing: false,
+  };
+
+  _onRefresh() {
+    this.setState({ refreshing: true });
+
+    // Neki kod pa then this.setState({refreshing: false});
+    setTimeout(() => {
+      this.setState({ refreshing: false });
+    }, 1000)
+  }
 
   render() {
     return (
-
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <StatusBar style="light" />
-        <WebView
-          source={{
-            uri: "https://mail.metropolitan.ac.rs/",
-          }}
-          style={{ width: screenWidth, height: screenHeight }}
-        />
+        <ScrollView refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />
+        }>
+          <WebView
+            source={{
+              uri: "https://mail.metropolitan.ac.rs/",
+            }}
+            style={{ width: screenWidth, height: screenHeight }}
+          />
+        </ScrollView>
       </View>
 
     );

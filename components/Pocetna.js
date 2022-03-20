@@ -61,7 +61,7 @@ export default class Pocetna extends Component {
 
   _renderModalContent = () => (
     <View style={styles.modalContent}>
-      <StatusBar style="light" />
+      <StatusBar style="light" animated={true} backgroundColor="#c9093d" />
       <ImageBackground
         source={backgroundImage}
         style={{ width: "100%", height: "100%" }}
@@ -169,11 +169,11 @@ export default class Pocetna extends Component {
   );
 
   _onRefresh() {
-    this.setState({refreshing: true});
+    this.setState({ refreshing: true });
 
     // Neki kod pa then this.setState({refreshing: false});
     setTimeout(() => {
-      this.setState({refreshing: false});
+      this.setState({ refreshing: false });
     }, 1000)
   }
 
@@ -186,16 +186,15 @@ export default class Pocetna extends Component {
           justifyContent: "flex-start",
         }}
       >
-        <StatusBar style="light" />
+        <StatusBar style="light" animated={true} />
         <View style={{ width: '100%', height: '100%' }}>
 
-          <ScrollView refreshControl={
-            <RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />
+          <ScrollView refreshControl={<RefreshControl  refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />
           }>
             <ImageBackground source={StudentBg} style={styles.bgimage}>
               <View
                 style={{
-                  paddingTop: 75,
+                  paddingTop: 50,
                   paddingBottom: 20,
                 }}
               >
@@ -208,6 +207,7 @@ export default class Pocetna extends Component {
                   >
                     <Image source={SettingsIcon} style={{ width: 40, height: 40 }} />
                   </TouchableOpacity>
+
                   <TouchableOpacity
                     onPress={() => {
                       this.setState({ visibleModal: 1 });
@@ -218,6 +218,7 @@ export default class Pocetna extends Component {
                       style={{ width: 40, height: 45, marginLeft: 30 }}
                     />
                   </TouchableOpacity>
+
                 </View>
                 <Text style={{ color: "white", fontSize: 20, marginLeft: 20 }}>
                   DOBRO DOŠLI
@@ -233,6 +234,7 @@ export default class Pocetna extends Component {
                   Ime Prezime
                 </Text>
               </View>
+
               <View style={styles.messageContainer}>
                 <Text style={{ fontSize: 15 }}>Poruka</Text>
               </View>
@@ -483,7 +485,7 @@ const styles = StyleSheet.create({
   },
   topIconsContainer: {
     flexDirection: "row",
-    marginTop: 80,
+    marginTop: 30,
     marginBottom: 20,
   },
   logoIcon: {
@@ -545,6 +547,15 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+    elevation: 2,
+    elevation: 5,
   },
   unreadTitle: {
     color: '#c9093d',
