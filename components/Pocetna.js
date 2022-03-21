@@ -49,6 +49,8 @@ export default class Pocetna extends Component {
   state = {
     visibleModal: null,
     refreshing: false,
+    ime: "Ime",  //Default vrednost
+    prezime: "Prezime",
   };
 
   _renderOptionButton = (text, onPress) => (
@@ -231,7 +233,7 @@ export default class Pocetna extends Component {
                     marginLeft: 20,
                   }}
                 >
-                  Ime Prezime
+                  {this.state.ime} {this.state.prezime}
                 </Text>
               </View>
 
@@ -485,7 +487,7 @@ const styles = StyleSheet.create({
   },
   topIconsContainer: {
     flexDirection: "row",
-    marginTop: 30,
+    paddingTop: 50,
     marginBottom: 20,
   },
   logoIcon: {
