@@ -32,6 +32,7 @@ export default class Login extends Component {
     this.state = {
       email: "",
       password: "",
+      shouldShow: false,
     };
   }
 
@@ -46,7 +47,7 @@ export default class Login extends Component {
   //Viktor kod
   login = () => {
     // DEV MODE:
-     this.props.navigation.replace("Pocetna");
+    this.props.navigation.replace("Pocetna");
     // SERVER MODE
     // const baseURL = "http://109.92.116.113:5000/";
     // axios
@@ -142,13 +143,15 @@ export default class Login extends Component {
             <TouchableOpacity style={styles.loginButton} onPress={this.login}>
               <Text style={{ color: "#c9093d" }}>PRIJAVITE SE</Text>
             </TouchableOpacity>
+            {this.state.shouldShow &&
+              <TouchableOpacity
+                style={styles.loginButton}
+                onPress={this.autoLogin}
+              >
+                <Text style={{ color: "#c9093d" }}>AUTO LOGIN</Text>
+              </TouchableOpacity>
+            }
 
-            <TouchableOpacity
-              style={styles.loginButton}
-              onPress={this.autoLogin}
-            >
-              <Text style={{ color: "#c9093d" }}>AUTO LOGIN</Text>
-            </TouchableOpacity>
           </View>
         </ImageBackground>
       </KeyboardAvoidingView>

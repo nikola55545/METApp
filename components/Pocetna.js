@@ -51,6 +51,45 @@ export default class Pocetna extends Component {
     refreshing: false,
     ime: "Ime",  //Default vrednost
     prezime: "Prezime",
+    poruka: 'Poruka',
+    brojMejlova: 0,
+    naslovEmail1: "naslovEmail",
+    descEmail1: "descEmail",
+    dateEmail1: "dateEmail",
+    naslovEmail2: "naslovEmail",
+    descEmail2: "descEmail",
+    dateEmail2: "dateEmail",
+    naslovEmail3: "naslovEmail",
+    descEmail3: "descEmail",
+    dateEmail3: "dateEmail",
+    naslovObavestenje1: "naslovObavestenje",
+    tekstObavestenje1: "tekstObavestenje",
+    naslovObavestenje2: "naslovObavestenje",
+    tekstObavestenje2: "tekstObavestenje",
+    naslovObavestenje3: "naslovObavestenje",
+    tekstObavestenje3: "tekstObavestenje",
+    dateEvent1: "dateEvent",
+    tekstEvent1: "tekstEvent",
+    dateEvent2: "dateEvent",
+    tekstEvent2: "tekstEvent",
+    dateEvent3: "dateEvent",
+    tekstEvent3: "tekstEvent",
+    dateEvent4: "dateEvent",
+    tekstEvent4: "tekstEvent",
+    dateEvent5: "dateEvent",
+    tekstEvent5: "tekstEvent",
+    dateEvent6: "dateEvent",
+    tekstEvent6: "tekstEvent",
+    uri1: require('../assets/placeholder.png'),
+    uri2: require('../assets/placeholder.png'),
+    uri3: require('../assets/placeholder.png'),
+    uri4: require('../assets/placeholder.png'),
+    uri5: require('../assets/placeholder.png'),
+    uri6: require('../assets/placeholder.png'),
+    uriIg1: require('../assets/placeholder.png'),
+    uriIg2: require('../assets/placeholder.png'),
+    uriIg3: require('../assets/placeholder.png'),
+    uriIg4: require('../assets/placeholder.png'),
   };
 
   _renderOptionButton = (text, onPress) => (
@@ -238,26 +277,26 @@ export default class Pocetna extends Component {
               </View>
 
               <View style={styles.messageContainer}>
-                <Text style={{ fontSize: 15 }}>Poruka</Text>
+                <Text style={{ fontSize: 15 }}>{this.state.poruka}</Text>
               </View>
             </ImageBackground>
 
             <View style={styles.unreadMailContainer}>
-              <Text style={styles.categoryTitle}># Nepročitanih poruka</Text>
+              <Text style={styles.categoryTitle}>{this.state.brojMejlova} Nepročitanih poruka</Text>
               <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>Mail naslov</Text>
-                <Text style={styles.unreadDesc}>Mail Desc</Text>
-                <Text style={styles.unreadDate}>Mail Date</Text>
+                <Text style={styles.unreadTitle}>{this.state.naslovEmail1}</Text>
+                <Text style={styles.unreadDesc}>{this.state.descEmail1}</Text>
+                <Text style={styles.unreadDate}>{this.state.dateEmail1}</Text>
               </View>
               <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>Mail naslov</Text>
-                <Text style={styles.unreadDesc}>Mail Desc</Text>
-                <Text style={styles.unreadDate}>Mail Date</Text>
+                <Text style={styles.unreadTitle}>{this.state.naslovEmail2}</Text>
+                <Text style={styles.unreadDesc}>{this.state.descEmail2}</Text>
+                <Text style={styles.unreadDate}>{this.state.dateEmail2}</Text>
               </View>
               <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>Mail naslov</Text>
-                <Text style={styles.unreadDesc}>Mail Desc</Text>
-                <Text style={styles.unreadDate}>Mail Date</Text>
+                <Text style={styles.unreadTitle}>{this.state.naslovEmail3}</Text>
+                <Text style={styles.unreadDesc}>{this.state.descEmail3}</Text>
+                <Text style={styles.unreadDate}>{this.state.dateEmail3}</Text>
               </View>
               <View style={{ alignItems: 'flex-start', justifyContent: 'flex-start', width: '90%' }}>
                 <TouchableOpacity style={styles.checkMailButton}>
@@ -269,19 +308,16 @@ export default class Pocetna extends Component {
             <View style={styles.unreadMailContainer}>
               <Text style={styles.categoryTitle}>Nova Obaveštenja</Text>
               <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>Obavestenje naslov</Text>
-                <Text style={styles.unreadDesc}>Obavestenje Desc</Text>
-                <Text style={styles.unreadDate}>Obavestenje Date</Text>
+                <Text style={styles.unreadTitle}>{this.state.naslovObavestenje1}</Text>
+                <Text style={styles.unreadDesc}>{this.state.tekstObavestenje1}</Text>
               </View>
               <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>Obavestenje naslov</Text>
-                <Text style={styles.unreadDesc}>Obavestenje Desc</Text>
-                <Text style={styles.unreadDate}>Obavestenje Date</Text>
+                <Text style={styles.unreadTitle}>{this.state.naslovObavestenje2}</Text>
+                <Text style={styles.unreadDesc}>{this.state.tekstObavestenje2}</Text>
               </View>
               <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>Obavestenje naslov</Text>
-                <Text style={styles.unreadDesc}>Obavestenje Desc</Text>
-                <Text style={styles.unreadDate}>Obavestenje Date</Text>
+                <Text style={styles.unreadTitle}>{this.state.naslovObavestenje3}</Text>
+                <Text style={styles.unreadDesc}>{this.state.tekstObavestenje3}</Text>
               </View>
             </View>
 
@@ -290,23 +326,39 @@ export default class Pocetna extends Component {
               <ScrollView horizontal={true} style={styles.horizontalContentView}>
 
                 <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={PlaceholderImage} style={styles.eventImage} />
-                  <Text style={styles.eventText}>Event Desc</Text>
+                  <Image source={this.state.uri1} style={styles.eventImage} />
+                  <Text style={styles.eventDate}>{this.state.dateEvent1}</Text>
+                  <Text style={styles.eventText}>{this.state.tekstEvent1}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={PlaceholderImage} style={styles.eventImage} />
-                  <Text style={styles.eventText}>Event Desc</Text>
+                  <Image source={this.state.uri2} style={styles.eventImage} />
+                  <Text style={styles.eventDate}>{this.state.dateEvent2}</Text>
+                  <Text style={styles.eventText}>{this.state.tekstEvent2}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={PlaceholderImage} style={styles.eventImage} />
-                  <Text style={styles.eventText}>Event Desc</Text>
+                  <Image source={this.state.uri3} style={styles.eventImage} />
+                  <Text style={styles.eventDate}>{this.state.dateEvent3}</Text>
+                  <Text style={styles.eventText}>{this.state.tekstEvent3}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={PlaceholderImage} style={styles.eventImage} />
-                  <Text style={styles.eventText}>Event Desc</Text>
+                  <Image source={this.state.uri4} style={styles.eventImage} />
+                  <Text style={styles.eventDate}>{this.state.dateEvent4}</Text>
+                  <Text style={styles.eventText}>{this.state.tekstEvent4}</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.eventContainer}>
+                  <Image source={this.state.uri5} style={styles.eventImage} />
+                  <Text style={styles.eventDate}>{this.state.dateEvent5}</Text>
+                  <Text style={styles.eventText}>{this.state.tekstEvent5}</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.eventContainer}>
+                  <Image source={this.state.uri6} style={styles.eventImage} />
+                  <Text style={styles.eventDate}>{this.state.dateEvent6}</Text>
+                  <Text style={styles.eventText}>{this.state.tekstEvent6}</Text>
                 </TouchableOpacity>
 
               </ScrollView>
@@ -340,16 +392,16 @@ export default class Pocetna extends Component {
 
               <View style={styles.gridWrapInstagram}>
                 <TouchableOpacity>
-                  <Image source={PlaceholderImage} style={styles.igPhoto} />
+                  <Image source={this.state.uriIg1} style={styles.igPhoto} />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                  <Image source={PlaceholderImage} style={styles.igPhoto} />
+                  <Image source={this.state.uriIg2} style={styles.igPhoto} />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                  <Image source={PlaceholderImage} style={styles.igPhoto} />
+                  <Image source={this.state.uriIg3} style={styles.igPhoto} />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                  <Image source={PlaceholderImage} style={styles.igPhoto} />
+                  <Image source={this.state.uriIg4} style={styles.igPhoto} />
                 </TouchableOpacity>
 
               </View>
@@ -394,7 +446,9 @@ const styles = StyleSheet.create({
   },
   horizontalContentView: {
     flex: 1,
-    paddingTop: 10
+    paddingTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
   },
   unreadMailContainer: {
     width: "100%",
@@ -402,6 +456,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginTop: 15
+  },
+  eventContainer: {
+    width: "100%",
+    height: "100%",
+    flex: 1,
+    alignItems: "center",
+    marginTop: 15,
+    marginLeft: 20 
   },
   categoryTitle: {
     width: '90%',
@@ -412,8 +474,18 @@ const styles = StyleSheet.create({
   eventContainer: {
     backgroundColor: 'white',
     padding: 0,
-    margin: 5,
-    borderRadius: 10
+    margin: 7,
+    marginBottom: 15,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+    elevation: 2,
+    elevation: 5,
   },
   eventImage: {
     width: 220,
@@ -423,6 +495,10 @@ const styles = StyleSheet.create({
   },
   eventText: {
     margin: 10
+  },
+  eventDate: {
+    margin: 10,
+    color: '#c9093d',
   },
   circularImage: {
     borderRadius: 400 / 2,
