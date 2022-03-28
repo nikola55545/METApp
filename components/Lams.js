@@ -6,6 +6,8 @@ import {
   Button,
   TouchableOpacity,
   Dimensions,
+  ScrollView,
+  RefreshControl
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
