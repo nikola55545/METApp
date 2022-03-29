@@ -41,7 +41,9 @@ export default class Isum extends Component {
         <WebView
           source={{
             uri: "https://isum.metropolitan.ac.rs/isum=1646237280032/",
-          }}
+          },
+          injectedJavaScript={}
+        }
           style={{ width: screenWidth, height: screenHeight }}
         />
         </ScrollView>

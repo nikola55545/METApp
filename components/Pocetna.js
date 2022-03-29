@@ -13,10 +13,11 @@ import {
   Dimensions,
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import AnimatedPullToRefresh from 'react-native-animated-pull-to-refresh'
+import AnimatedPullToRefresh from "react-native-animated-pull-to-refresh";
 
 import Modal from "react-native-modal";
 
@@ -34,24 +35,41 @@ import ZIMBRAIcon from "../assets/icons/zimbra.png";
 import OBAVESTENJAIcon from "../assets/icons/obavestenja.png";
 import POPUSTIIcon from "../assets/icons/popusti.png";
 import KONTAKTIcon from "../assets/icons/kontakt.png";
-import PlaceholderImage from "../assets/placeholder.png"
-import FacebookIcon from '../assets/icons/fb.png';
-import ViberIcon from '../assets/icons/viber.png';
-import WhatsappIcon from '../assets/icons/whatsapp.png';
-import LinkedinIcon from '../assets/icons/linkedin.png';
-import InstagramIcon from '../assets/icons/instagram.png';
-import YoutubeIcon from '../assets/icons/yt.png';
+import PlaceholderImage from "../assets/placeholder.png";
+import FacebookIcon from "../assets/icons/fb.png";
+import ViberIcon from "../assets/icons/viber.png";
+import WhatsappIcon from "../assets/icons/whatsapp.png";
+import LinkedinIcon from "../assets/icons/linkedin.png";
+import InstagramIcon from "../assets/icons/instagram.png";
+import YoutubeIcon from "../assets/icons/yt.png";
 
-const vw = Dimensions.get('window').width * 0.01
-const vh = Dimensions.get('window').height * 0.01
+const axios = require("axios").default;
+
+const vw = Dimensions.get("window").width * 0.01;
+const vh = Dimensions.get("window").height * 0.01;
+
+//https://isum.metropolitan.ac.rs/rest/metapp/user/jovana.jovic
+
+// //UBACUJE SACUVANE PODATKE U STATE
+// getData = async () => {
+//   try {
+//     e = await AsyncStorage.getItem("email");
+//     this.setState({ email: e });
+
+//     console.log(this.state.email);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
 
 export default class Pocetna extends Component {
   state = {
+    username: "",
     visibleModal: null,
     refreshing: false,
-    ime: "Ime",  //Default vrednost
+    ime: "Ime", //Default vrednost
     prezime: "Prezime",
-    poruka: 'Poruka',
+    poruka: "Poruka",
     brojMejlova: 0,
     naslovEmail1: "naslovEmail",
     descEmail1: "descEmail",
@@ -80,16 +98,53 @@ export default class Pocetna extends Component {
     tekstEvent5: "tekstEvent",
     dateEvent6: "dateEvent",
     tekstEvent6: "tekstEvent",
-    uri1: require('../assets/placeholder.png'),
-    uri2: require('../assets/placeholder.png'),
-    uri3: require('../assets/placeholder.png'),
-    uri4: require('../assets/placeholder.png'),
-    uri5: require('../assets/placeholder.png'),
-    uri6: require('../assets/placeholder.png'),
-    uriIg1: require('../assets/placeholder.png'),
-    uriIg2: require('../assets/placeholder.png'),
-    uriIg3: require('../assets/placeholder.png'),
-    uriIg4: require('../assets/placeholder.png'),
+    uri1: require("../assets/placeholder.png"),
+    uri2: require("../assets/placeholder.png"),
+    uri3: require("../assets/placeholder.png"),
+    uri4: require("../assets/placeholder.png"),
+    uri5: require("../assets/placeholder.png"),
+    uri6: require("../assets/placeholder.png"),
+    uriIg1: require("../assets/placeholder.png"),
+    uriIg2: require("../assets/placeholder.png"),
+    uriIg3: require("../assets/placeholder.png"),
+    uriIg4: require("../assets/placeholder.png"),
+  };
+
+  async componentDidMount() {
+    await this.getData();
+    this.getIme();
+  }
+
+  getData = async () => {
+    try {
+      e = await AsyncStorage.getItem("email");
+      // console.log("Saved data: " + e);
+      let username = "";
+      if (e.includes("@")) {
+        username = e.substring(0, e.indexOf("@"));
+      } else {
+        username = e;
+      }
+
+      //console.log("username: '" + username + "'");
+      this.setState({ username: username.toLowerCase() });
+
+      //  console.log(this.state.username);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  getIme = () => {
+    axios
+      .get(
+        "https://isum.metropolitan.ac.rs/rest/metapp/user/" +
+          this.state.username
+      )
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ username: response.data.ime });
+      });
   };
 
   _renderOptionButton = (text, onPress) => (
@@ -194,10 +249,12 @@ export default class Pocetna extends Component {
             </View>
           </TouchableOpacity>
           {/* -----------------------------------------------------------Kontakt */}
-          <TouchableOpacity onPress={({ navigation }) => {
-            this.props.navigation.navigate("Kontakt");
-            this.setState({ visibleModal: null });
-          }}>
+          <TouchableOpacity
+            onPress={({ navigation }) => {
+              this.props.navigation.navigate("Kontakt");
+              this.setState({ visibleModal: null });
+            }}
+          >
             <View style={styles.button}>
               <Image source={KONTAKTIcon} style={styles.optionButtons} />
               <Text>KONTAKT</Text>
@@ -215,7 +272,7 @@ export default class Pocetna extends Component {
     // Neki kod pa then this.setState({refreshing: false});
     setTimeout(() => {
       this.setState({ refreshing: false });
-    }, 1000)
+    }, 1000);
   }
 
   render() {
@@ -228,10 +285,15 @@ export default class Pocetna extends Component {
         }}
       >
         <StatusBar style="light" animated={true} />
-        <View style={{ width: '100%', height: '100%' }}>
-
-          <ScrollView refreshControl={<RefreshControl  refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />
-          }>
+        <View style={{ width: "100%", height: "100%" }}>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh.bind(this)}
+              />
+            }
+          >
             <ImageBackground source={StudentBg} style={styles.bgimage}>
               <View
                 style={{
@@ -246,7 +308,10 @@ export default class Pocetna extends Component {
                       this.setState({ visibleModal: null });
                     }}
                   >
-                    <Image source={SettingsIcon} style={{ width: 40, height: 40 }} />
+                    <Image
+                      source={SettingsIcon}
+                      style={{ width: 40, height: 40 }}
+                    />
                   </TouchableOpacity>
 
                   <TouchableOpacity
@@ -259,7 +324,6 @@ export default class Pocetna extends Component {
                       style={{ width: 40, height: 45, marginLeft: 30 }}
                     />
                   </TouchableOpacity>
-
                 </View>
                 <Text style={{ color: "white", fontSize: 20, marginLeft: 20 }}>
                   DOBRO DOŠLI
@@ -282,25 +346,39 @@ export default class Pocetna extends Component {
             </ImageBackground>
 
             <View style={styles.unreadMailContainer}>
-              <Text style={styles.categoryTitle}>{this.state.brojMejlova} Nepročitanih poruka</Text>
+              <Text style={styles.categoryTitle}>
+                {this.state.brojMejlova} Nepročitanih poruka
+              </Text>
               <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>{this.state.naslovEmail1}</Text>
+                <Text style={styles.unreadTitle}>
+                  {this.state.naslovEmail1}
+                </Text>
                 <Text style={styles.unreadDesc}>{this.state.descEmail1}</Text>
                 <Text style={styles.unreadDate}>{this.state.dateEmail1}</Text>
               </View>
               <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>{this.state.naslovEmail2}</Text>
+                <Text style={styles.unreadTitle}>
+                  {this.state.naslovEmail2}
+                </Text>
                 <Text style={styles.unreadDesc}>{this.state.descEmail2}</Text>
                 <Text style={styles.unreadDate}>{this.state.dateEmail2}</Text>
               </View>
               <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>{this.state.naslovEmail3}</Text>
+                <Text style={styles.unreadTitle}>
+                  {this.state.naslovEmail3}
+                </Text>
                 <Text style={styles.unreadDesc}>{this.state.descEmail3}</Text>
                 <Text style={styles.unreadDate}>{this.state.dateEmail3}</Text>
               </View>
-              <View style={{ alignItems: 'flex-start', justifyContent: 'flex-start', width: '90%' }}>
+              <View
+                style={{
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                  width: "90%",
+                }}
+              >
                 <TouchableOpacity style={styles.checkMailButton}>
-                  <Text style={{ color: 'white' }}>PROVERI POSTU</Text>
+                  <Text style={{ color: "white" }}>PROVERI POSTU</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -308,23 +386,37 @@ export default class Pocetna extends Component {
             <View style={styles.unreadMailContainer}>
               <Text style={styles.categoryTitle}>Nova Obaveštenja</Text>
               <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>{this.state.naslovObavestenje1}</Text>
-                <Text style={styles.unreadDesc}>{this.state.tekstObavestenje1}</Text>
+                <Text style={styles.unreadTitle}>
+                  {this.state.naslovObavestenje1}
+                </Text>
+                <Text style={styles.unreadDesc}>
+                  {this.state.tekstObavestenje1}
+                </Text>
               </View>
               <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>{this.state.naslovObavestenje2}</Text>
-                <Text style={styles.unreadDesc}>{this.state.tekstObavestenje2}</Text>
+                <Text style={styles.unreadTitle}>
+                  {this.state.naslovObavestenje2}
+                </Text>
+                <Text style={styles.unreadDesc}>
+                  {this.state.tekstObavestenje2}
+                </Text>
               </View>
               <View style={styles.buttonMail}>
-                <Text style={styles.unreadTitle}>{this.state.naslovObavestenje3}</Text>
-                <Text style={styles.unreadDesc}>{this.state.tekstObavestenje3}</Text>
+                <Text style={styles.unreadTitle}>
+                  {this.state.naslovObavestenje3}
+                </Text>
+                <Text style={styles.unreadDesc}>
+                  {this.state.tekstObavestenje3}
+                </Text>
               </View>
             </View>
 
             <View style={styles.unreadMailContainer}>
               <Text style={styles.categoryTitle}>Događaji</Text>
-              <ScrollView horizontal={true} style={styles.horizontalContentView}>
-
+              <ScrollView
+                horizontal={true}
+                style={styles.horizontalContentView}
+              >
                 <TouchableOpacity style={styles.eventContainer}>
                   <Image source={this.state.uri1} style={styles.eventImage} />
                   <Text style={styles.eventDate}>{this.state.dateEvent1}</Text>
@@ -360,26 +452,43 @@ export default class Pocetna extends Component {
                   <Text style={styles.eventDate}>{this.state.dateEvent6}</Text>
                   <Text style={styles.eventText}>{this.state.tekstEvent6}</Text>
                 </TouchableOpacity>
-
               </ScrollView>
-              <View style={{ alignItems: 'flex-start', justifyContent: 'flex-start', width: '90%' }}>
+              <View
+                style={{
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                  width: "90%",
+                }}
+              >
                 <TouchableOpacity style={styles.checkMailButton}>
-                  <Text style={{ color: 'white' }}>SVI DOGAĐAJI</Text>
+                  <Text style={{ color: "white" }}>SVI DOGAĐAJI</Text>
                 </TouchableOpacity>
               </View>
             </View>
 
             <View style={styles.socialContainer}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text
+                  style={{ marginLeft: "5%", color: "#262626", fontSize: 17 }}
+                >
+                  Pratite nas
+                </Text>
 
-                <Text style={{ marginLeft: '5%', color: '#262626', fontSize: 17 }}>Pratite nas</Text>
-
-                <View style={{ flexDirection: 'row', marginLeft: 'auto', marginRight: '5%' }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginLeft: "auto",
+                    marginRight: "5%",
+                  }}
+                >
                   <TouchableOpacity>
                     <Image source={FacebookIcon} style={styles.circularImage} />
                   </TouchableOpacity>
                   <TouchableOpacity>
-                    <Image source={InstagramIcon} style={styles.circularImage} />
+                    <Image
+                      source={InstagramIcon}
+                      style={styles.circularImage}
+                    />
                   </TouchableOpacity>
                   <TouchableOpacity>
                     <Image source={YoutubeIcon} style={styles.circularImage} />
@@ -403,17 +512,14 @@ export default class Pocetna extends Component {
                 <TouchableOpacity>
                   <Image source={this.state.uriIg4} style={styles.igPhoto} />
                 </TouchableOpacity>
-
               </View>
 
-              <Text style={styles.metStudentsTextRed}>Powered by MET Studenti</Text>
-
+              <Text style={styles.metStudentsTextRed}>
+                Powered by MET Studenti
+              </Text>
             </View>
-
           </ScrollView>
-
         </View>
-
 
         <Modal
           isVisible={this.state.visibleModal === 1}
@@ -441,7 +547,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.20,
+    shadowOpacity: 0.2,
     shadowRadius: 1.41,
   },
   horizontalContentView: {
@@ -455,7 +561,7 @@ const styles = StyleSheet.create({
     height: "100%",
     flex: 1,
     alignItems: "center",
-    marginTop: 15
+    marginTop: 15,
   },
   eventContainer: {
     width: "100%",
@@ -463,16 +569,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginTop: 15,
-    marginLeft: 20 
+    marginLeft: 20,
   },
   categoryTitle: {
-    width: '90%',
+    width: "90%",
     fontSize: 17,
     marginBottom: 5,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   eventContainer: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 0,
     margin: 7,
     marginBottom: 15,
@@ -482,7 +588,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.20,
+    shadowOpacity: 0.2,
     shadowRadius: 1.41,
     elevation: 2,
     elevation: 5,
@@ -494,11 +600,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
   },
   eventText: {
-    margin: 10
+    margin: 10,
   },
   eventDate: {
     margin: 10,
-    color: '#c9093d',
+    color: "#c9093d",
   },
   circularImage: {
     borderRadius: 400 / 2,
@@ -507,15 +613,15 @@ const styles = StyleSheet.create({
     marginStart: 5,
   },
   socialContainer: {
-    paddingTop: 15
+    paddingTop: 15,
   },
   buttonMail: {
-    backgroundColor: 'white',
-    flexDirection: 'column',
+    backgroundColor: "white",
+    flexDirection: "column",
     padding: 15,
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    width: '90%',
+    width: "90%",
     borderRadius: 10,
     marginTop: 7.5,
     marginBottom: 7.5,
@@ -524,29 +630,29 @@ const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.20,
+    shadowOpacity: 0.2,
     shadowRadius: 1.41,
     elevation: 2,
     elevation: 5,
   },
   messageContainer: {
-    width: '90%',
+    width: "90%",
     paddingTop: 20,
     paddingBottom: 20,
     paddingStart: 20,
     paddingEnd: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     marginBottom: 30,
     borderRadius: 10,
   },
   checkMailButton: {
-    backgroundColor: '#c9093d',
+    backgroundColor: "#c9093d",
     paddingTop: 12,
     paddingBottom: 12,
     paddingStart: 25,
     paddingEnd: 25,
     borderRadius: 400 / 2,
-    marginTop: 10
+    marginTop: 10,
   },
   modalContent: {
     backgroundColor: "#c9093d",
@@ -617,7 +723,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 25,
     marginBottom: 35,
-    fontSize: 15
+    fontSize: 15,
   },
   bgimage: {
     alignItems: "center",
@@ -630,23 +736,23 @@ const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.20,
+    shadowOpacity: 0.2,
     shadowRadius: 1.41,
     elevation: 2,
     elevation: 5,
   },
   unreadTitle: {
-    color: '#c9093d',
-    fontWeight: 'bold',
+    color: "#c9093d",
+    fontWeight: "bold",
   },
   unreadDesc: {},
   unreadDate: {
-    color: '#c9093d',
+    color: "#c9093d",
   },
   igPhoto: {
     width: 160,
     height: 160,
     margin: 6,
-    borderRadius: 7
+    borderRadius: 7,
   },
 });
