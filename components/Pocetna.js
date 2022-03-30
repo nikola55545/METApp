@@ -65,6 +65,8 @@ const vh = Dimensions.get("window").height * 0.01;
 export default class Pocetna extends Component {
   state = {
     username: "",
+    email: "",
+    password: "",
     visibleModal: null,
     refreshing: false,
     ime: "Ime", //Default vrednost
@@ -98,12 +100,12 @@ export default class Pocetna extends Component {
     tekstEvent5: "tekstEvent",
     dateEvent6: "dateEvent",
     tekstEvent6: "tekstEvent",
-    uri1: require("../assets/placeholder.png"),
-    uri2: require("../assets/placeholder.png"),
-    uri3: require("../assets/placeholder.png"),
-    uri4: require("../assets/placeholder.png"),
-    uri5: require("../assets/placeholder.png"),
-    uri6: require("../assets/placeholder.png"),
+    uri1: "../assets/placeholder.png",
+    uri2: "../assets/placeholder.png",
+    uri3: "../assets/placeholder.png",
+    uri4: "../assets/placeholder.png",
+    uri5: "../assets/placeholder.png",
+    uri6: "../assets/placeholder.png",
     uriIg1: require("../assets/placeholder.png"),
     uriIg2: require("../assets/placeholder.png"),
     uriIg3: require("../assets/placeholder.png"),
@@ -111,11 +113,29 @@ export default class Pocetna extends Component {
   };
 
   async componentDidMount() {
-    await this.getData();
+    await this.getEmailAndPassword();
+    await this.getUsername();
     this.getIme();
+    this.getPoruka();
+    this.getNeprocitanePoruke();
+    this.getObavestanja();
+    this.getDogadjaji();
   }
 
-  getData = async () => {
+  getEmailAndPassword = async () => {
+    try {
+      e = await AsyncStorage.getItem("email");
+      p = await AsyncStorage.getItem("password");
+      this.setState({ email: e });
+      this.setState({ password: p });
+
+      console.log(this.state.email);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  getUsername = async () => {
     try {
       e = await AsyncStorage.getItem("email");
       // console.log("Saved data: " + e);
@@ -142,9 +162,98 @@ export default class Pocetna extends Component {
           this.state.username
       )
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.body);
         this.setState({ username: response.data.ime });
       });
+  };
+
+  getPoruka = () => {
+    axios.get("http://109.92.116.113:5003/getPoruka").then((response) => {
+      this.setState({ poruka: response.data.parsedData.naslovList[0] });
+    });
+  };
+
+  getNeprocitanePoruke = () => {
+    const baseURL = "http://109.92.116.113:5000/returnMessages"; // Viktor lokalni server
+    axios
+      .post(
+        baseURL,
+        { email: this.state.email, password: this.state.password },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        //  console.log(response.data);
+        let brojNeprocitanihMejlova = response.data.length;
+        this.setState({ brojMejlova: brojNeprocitanihMejlova });
+
+        if (brojNeprocitanihMejlova > 0) {
+          this.setState({ naslovEmail1: response.data[0].subject });
+          this.setState({ descEmail1: response.data[0].from });
+          this.setState({ dateEmail1: response.data[0].date });
+        }
+        if (brojNeprocitanihMejlova > 1) {
+          this.setState({ naslovEmail2: response.data[1].subject });
+          this.setState({ descEmail2: response.data[1].from });
+          this.setState({ dateEmail2: response.data[1].date });
+        }
+        if (brojNeprocitanihMejlova > 2) {
+          this.setState({ naslovEmail3: response.data[2].subject });
+          this.setState({ descEmail3: response.data[2].from });
+          this.setState({ dateEmail3: response.data[2].date });
+        }
+      });
+  };
+
+  getObavestanja = () => {
+    axios.get("http://109.92.116.113:5002/getObavestenja").then((response) => {
+      // console.log(response.data.parsedData);
+
+      let naslovi = response.data.parsedData.naslovList;
+      let tekstovi = response.data.parsedData.tekstList;
+
+      this.setState({ naslovObavestenje1: naslovi[0] });
+      this.setState({ naslovObavestenje2: naslovi[1] });
+      this.setState({ naslovObavestenje3: naslovi[2] });
+
+      this.setState({ tekstObavestenje1: tekstovi[0] });
+      this.setState({ tekstObavestenje2: tekstovi[1] });
+      this.setState({ tekstObavestenje3: tekstovi[2] });
+    });
+  };
+
+  getDogadjaji = () => {
+    axios.get("http://109.92.116.113:5001/getDogadjaji").then((response) => {
+      //console.log(response.data.parsedData);
+
+      let naslovi = response.data.parsedData.naslovList;
+      let datumi = response.data.parsedData.datumList;
+      let slike = response.data.parsedData.fotkeList;
+
+      this.setState({ tekstEvent1: naslovi[0] });
+      this.setState({ tekstEvent2: naslovi[1] });
+      this.setState({ tekstEvent3: naslovi[2] });
+      this.setState({ tekstEvent4: naslovi[3] });
+      this.setState({ tekstEvent5: naslovi[4] });
+      this.setState({ tekstEvent6: naslovi[5] });
+
+      this.setState({ dateEvent1: datumi[0] });
+      this.setState({ dateEvent2: datumi[1] });
+      this.setState({ dateEvent3: datumi[2] });
+      this.setState({ dateEvent4: datumi[3] });
+      this.setState({ dateEvent5: datumi[4] });
+      this.setState({ dateEvent6: datumi[5] });
+
+      this.setState({ uri1: slike[0] });
+      this.setState({ uri2: slike[1] });
+      this.setState({ uri3: slike[2] });
+      this.setState({ uri4: slike[3] });
+      this.setState({ uri5: slike[4] });
+      this.setState({ uri6: slike[5] });
+    });
   };
 
   _renderOptionButton = (text, onPress) => (
@@ -418,37 +527,55 @@ export default class Pocetna extends Component {
                 style={styles.horizontalContentView}
               >
                 <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={this.state.uri1} style={styles.eventImage} />
+                  <Image
+                    source={{ uri: this.state.uri1 }}
+                    style={styles.eventImage}
+                  />
                   <Text style={styles.eventDate}>{this.state.dateEvent1}</Text>
                   <Text style={styles.eventText}>{this.state.tekstEvent1}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={this.state.uri2} style={styles.eventImage} />
+                  <Image
+                    source={{ uri: this.state.uri2 }}
+                    style={styles.eventImage}
+                  />
                   <Text style={styles.eventDate}>{this.state.dateEvent2}</Text>
                   <Text style={styles.eventText}>{this.state.tekstEvent2}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={this.state.uri3} style={styles.eventImage} />
+                  <Image
+                    source={{ uri: this.state.uri3 }}
+                    style={styles.eventImage}
+                  />
                   <Text style={styles.eventDate}>{this.state.dateEvent3}</Text>
                   <Text style={styles.eventText}>{this.state.tekstEvent3}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={this.state.uri4} style={styles.eventImage} />
+                  <Image
+                    source={{ uri: this.state.uri4 }}
+                    style={styles.eventImage}
+                  />
                   <Text style={styles.eventDate}>{this.state.dateEvent4}</Text>
                   <Text style={styles.eventText}>{this.state.tekstEvent4}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={this.state.uri5} style={styles.eventImage} />
+                  <Image
+                    source={{ uri: this.state.uri5 }}
+                    style={styles.eventImage}
+                  />
                   <Text style={styles.eventDate}>{this.state.dateEvent5}</Text>
                   <Text style={styles.eventText}>{this.state.tekstEvent5}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.eventContainer}>
-                  <Image source={this.state.uri6} style={styles.eventImage} />
+                  <Image
+                    source={{ uri: this.state.uri6 }}
+                    style={styles.eventImage}
+                  />
                   <Text style={styles.eventDate}>{this.state.dateEvent6}</Text>
                   <Text style={styles.eventText}>{this.state.tekstEvent6}</Text>
                 </TouchableOpacity>
