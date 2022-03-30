@@ -69,7 +69,7 @@ export default class Pocetna extends Component {
     naslovObavestenje3: "naslovObavestenje",
     tekstObavestenje3: "tekstObavestenje",
     dateEvent1: "dateEvent",
-    tekstEvent1: "tekstEvent",
+    tekstEvent1: "tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent",
     dateEvent2: "dateEvent",
     tekstEvent2: "tekstEvent",
     dateEvent3: "dateEvent",
@@ -457,14 +457,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 15
   },
-  eventContainer: {
-    width: "100%",
-    height: "100%",
-    flex: 1,
-    alignItems: "center",
-    marginTop: 15,
-    marginLeft: 20 
-  },
   categoryTitle: {
     width: '90%',
     fontSize: 17,
@@ -486,15 +478,21 @@ const styles = StyleSheet.create({
     shadowRadius: 1.41,
     elevation: 2,
     elevation: 5,
+
+    width: 270
   },
   eventImage: {
-    width: 220,
-    height: 123.75,
+    width: 270,
+    height: 151.88,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
-  eventText: {
-    margin: 10
+  eventText: {  
+    width: '90%',
+    marginStart: 10,
+    marginEnd: 10,
+    marginBottom: 10,
+    marginTop: 0,
   },
   eventDate: {
     margin: 10,
