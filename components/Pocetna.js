@@ -70,7 +70,7 @@ export default class Pocetna extends Component {
     visibleModal: null,
     refreshing: false,
     ime: "Ime", //Default vrednost
-    prezime: "Prezime",
+    prezime: "",
     poruka: "Poruka",
     brojMejlova: 0,
     naslovEmail1: "naslovEmail",
@@ -163,7 +163,8 @@ export default class Pocetna extends Component {
       )
       .then((response) => {
         console.log(response.data.body);
-        this.setState({ username: response.data.ime });
+        this.setState({ ime: response.data.ime });
+        console.log("ime= " + this.state.ime);
       });
   };
 
