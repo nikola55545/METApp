@@ -89,7 +89,8 @@ export default class Pocetna extends Component {
     naslovObavestenje3: "naslovObavestenje",
     tekstObavestenje3: "tekstObavestenje",
     dateEvent1: "dateEvent",
-    tekstEvent1: "tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent",
+    tekstEvent1:
+      "tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent",
     dateEvent2: "dateEvent",
     tekstEvent2: "tekstEvent",
     dateEvent3: "dateEvent",
@@ -106,10 +107,10 @@ export default class Pocetna extends Component {
     uri4: "../assets/placeholder.png",
     uri5: "../assets/placeholder.png",
     uri6: "../assets/placeholder.png",
-    uriIg1: require("../assets/placeholder.png"),
-    uriIg2: require("../assets/placeholder.png"),
-    uriIg3: require("../assets/placeholder.png"),
-    uriIg4: require("../assets/placeholder.png"),
+    uriIg1: "../assets/placeholder.png",
+    uriIg2: "../assets/placeholder.png",
+    uriIg3: "../assets/placeholder.png",
+    uriIg4: "../assets/placeholder.png",
   };
 
   async componentDidMount() {
@@ -120,6 +121,7 @@ export default class Pocetna extends Component {
     this.getNeprocitanePoruke();
     this.getObavestanja();
     this.getDogadjaji();
+    this.getInstagramSlike();
   }
 
   getEmailAndPassword = async () => {
@@ -129,7 +131,7 @@ export default class Pocetna extends Component {
       this.setState({ email: e });
       this.setState({ password: p });
 
-      console.log(this.state.email);
+      // console.log(this.state.email);
     } catch (e) {
       console.log(e);
     }
@@ -162,9 +164,9 @@ export default class Pocetna extends Component {
           this.state.username
       )
       .then((response) => {
-        console.log(response.data.body);
+        //   console.log(response.data.body);
         this.setState({ ime: response.data.ime });
-        console.log("ime= " + this.state.ime);
+        //   console.log("ime= " + this.state.ime);
       });
   };
 
@@ -254,6 +256,19 @@ export default class Pocetna extends Component {
       this.setState({ uri4: slike[3] });
       this.setState({ uri5: slike[4] });
       this.setState({ uri6: slike[5] });
+    });
+  };
+
+  getInstagramSlike = () => {
+    axios.get("http://109.92.116.113:5004/getIgSlike").then((response) => {
+      //  console.log(response.data.parsedData);
+
+      this.state.uriIg1 = response.data.parsedData.slikeList[0];
+      this.state.uriIg2 = response.data.parsedData.slikeList[1];
+      this.state.uriIg3 = response.data.parsedData.slikeList[2];
+      this.state.uriIg4 = response.data.parsedData.slikeList[3];
+
+      console.log(this.state.uriIg1);
     });
   };
 
@@ -629,16 +644,28 @@ export default class Pocetna extends Component {
 
               <View style={styles.gridWrapInstagram}>
                 <TouchableOpacity>
-                  <Image source={this.state.uriIg1} style={styles.igPhoto} />
+                  <Image
+                    source={{ uri: this.state.uriIg1 }}
+                    style={styles.igPhoto}
+                  />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                  <Image source={this.state.uriIg2} style={styles.igPhoto} />
+                  <Image
+                    source={{ uri: this.state.uriIg2 }}
+                    style={styles.igPhoto}
+                  />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                  <Image source={this.state.uriIg3} style={styles.igPhoto} />
+                  <Image
+                    source={{ uri: this.state.uriIg3 }}
+                    style={styles.igPhoto}
+                  />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                  <Image source={this.state.uriIg4} style={styles.igPhoto} />
+                  <Image
+                    source={{ uri: this.state.uriIg4 }}
+                    style={styles.igPhoto}
+                  />
                 </TouchableOpacity>
               </View>
 
@@ -713,7 +740,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     elevation: 5,
 
-    width: 270
+    width: 270,
   },
   eventImage: {
     width: 270,
@@ -721,8 +748,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
-  eventText: {  
-    width: '90%',
+  eventText: {
+    width: "90%",
     marginStart: 10,
     marginEnd: 10,
     marginBottom: 10,

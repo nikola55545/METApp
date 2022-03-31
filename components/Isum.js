@@ -35,9 +35,9 @@ export default class Isum extends Component {
       this.setState({ email: e });
       this.setState({ password: p });
 
-      console.log(this.state.email);
+      //  console.log(this.state.email);
     } catch (e) {
-      console.log(e);
+      //  console.log(e);
     }
   };
 
