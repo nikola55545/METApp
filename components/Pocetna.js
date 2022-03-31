@@ -171,13 +171,13 @@ export default class Pocetna extends Component {
   };
 
   getPoruka = () => {
-    axios.get("http://109.92.116.113:5003/getPoruka").then((response) => {
+    axios.get("http://89.216.56.107/getPoruka").then((response) => {
       this.setState({ poruka: response.data.parsedData.naslovList[0] });
     });
   };
 
   getNeprocitanePoruke = () => {
-    const baseURL = "http://109.92.116.113:5000/returnMessages"; // Viktor lokalni server
+    const baseURL = "http://89.216.56.107/returnMessages"; // Viktor lokalni server
     axios
       .post(
         baseURL,
@@ -212,7 +212,7 @@ export default class Pocetna extends Component {
   };
 
   getObavestanja = () => {
-    axios.get("http://109.92.116.113:5002/getObavestenja").then((response) => {
+    axios.get("http://89.216.56.107/getObavestenja").then((response) => {
       // console.log(response.data.parsedData);
 
       let naslovi = response.data.parsedData.naslovList;
@@ -229,7 +229,7 @@ export default class Pocetna extends Component {
   };
 
   getDogadjaji = () => {
-    axios.get("http://109.92.116.113:5001/getDogadjaji").then((response) => {
+    axios.get("http://89.216.56.107/getDogadjaji").then((response) => {
       //console.log(response.data.parsedData);
 
       let naslovi = response.data.parsedData.naslovList;
@@ -260,7 +260,7 @@ export default class Pocetna extends Component {
   };
 
   getInstagramSlike = () => {
-    axios.get("http://109.92.116.113:5004/getIgSlike").then((response) => {
+    axios.get("http://89.216.56.107/getIgSlike").then((response) => {
       //  console.log(response.data.parsedData);
 
       this.state.uriIg1 = response.data.parsedData.slikeList[0];
