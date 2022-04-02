@@ -8,7 +8,7 @@ import {
   Dimensions,
   Image,
   Switch,
-  Share
+  Share,
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -28,19 +28,22 @@ export default class Podesavanja extends Component {
       switch2Value: false,
     };
   }
+
   toggleSwitch1 = (value) => {
     this.setState({ switch1Value: value });
-    console.log("Switch 1 is: " + value);
+    this.storeDataZimbraNotifikacije(value.toString());
   };
   toggleSwitch2 = (value) => {
     this.setState({ switch2Value: value });
-    console.log("Switch 2 is: " + value);
+    this.storeDataNotifikacije(value.toString());
   };
 
   odjaviMe = async () => {
     try {
       await AsyncStorage.setItem("email", "");
       await AsyncStorage.setItem("password", "");
+      await AsyncStorage.setItem("ZimbraNotifikacije", "");
+      await AsyncStorage.setItem("Notifikacije", "");
     } catch (e) {
       console.log(e);
     }
@@ -54,7 +57,7 @@ export default class Podesavanja extends Component {
   onShare = async () => {
     try {
       const result = await Share.share({
-        message: 'LINK KA APLIKACIJI',
+        message: "LINK KA APLIKACIJI",
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -67,6 +70,40 @@ export default class Podesavanja extends Component {
       }
     } catch (error) {
       alert(error.message);
+    }
+  };
+  componentDidMount() {
+    this.getData();
+  }
+
+  storeDataZimbraNotifikacije = async (value) => {
+    try {
+      await AsyncStorage.setItem("ZimbraNotifikacije", value);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  storeDataNotifikacije = async (value) => {
+    try {
+      await AsyncStorage.setItem("Notifikacije", value);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  getData = async () => {
+    try {
+      switch1 = await AsyncStorage.getItem("ZimbraNotifikacije");
+      switch2 = await AsyncStorage.getItem("Notifikacije");
+
+      switch1IsTrue = switch1 === "true";
+      switch2IsTrue = switch2 === "true";
+
+      //console.log(switch1 + switch2);
+      this.setState({ switch1Value: switch1IsTrue });
+      this.setState({ switch2Value: switch2IsTrue });
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -126,10 +163,7 @@ export default class Podesavanja extends Component {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this.onShare}
-        >
+        <TouchableOpacity style={styles.button} onPress={this.onShare}>
           <Image source={ShareIcon} style={styles.buttonIcon} />
           <View>
             <Text>Preporuči prijatelju</Text>

@@ -92,7 +92,7 @@ export default class Login extends Component {
       this.setState({ email: e });
       this.setState({ password: p });
 
-      console.log(this.state.email);
+      // console.log(this.state.email);
     } catch (e) {
       console.log(e);
     }
@@ -101,9 +101,18 @@ export default class Login extends Component {
   // POZVATI OVU FUNKCIJU JEDNOM KAD SE POKRENE APP
   autoLogin = async () => {
     await this.getData();
-    console.log("E" + this.state.email);
-    console.log("P" + this.state.password);
-    if (this.state.email != "" && this.state.password != "") {
+    // console.log("E '" + this.state.email + "'");
+    // console.log("P '" + this.state.password + "'");
+
+    if (
+      this.state.email != "" &&
+      this.state.password != "" &&
+      this.state.email != "null" &&
+      this.state.password != "null" &&
+      this.state.email != null &&
+      this.state.password != null
+    ) {
+      console.log("tried");
       this.login();
     }
   };
