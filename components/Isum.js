@@ -88,7 +88,9 @@ export default class Isum extends Component {
             }}
             injectedJavaScript={
               "document.getElementById('username').value = `" +
-              this.state.email.substring(0, this.state.email.indexOf("@")) +
+              this.state.email
+                .substring(0, this.state.email.indexOf("@"))
+                .toLowerCase() +
               "`;" +
               " document.getElementById('password').value = `" +
               this.state.password +
