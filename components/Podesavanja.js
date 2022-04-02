@@ -8,6 +8,7 @@ import {
   Dimensions,
   Image,
   Switch,
+  Share
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -48,6 +49,25 @@ export default class Podesavanja extends Component {
       index: 0,
       routes: [{ name: "Login" }],
     });
+  };
+
+  onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'LINK KA APLIKACIJI',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   render() {
@@ -108,7 +128,7 @@ export default class Podesavanja extends Component {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => alert("Share Context")}
+          onPress={this.onShare}
         >
           <Image source={ShareIcon} style={styles.buttonIcon} />
           <View>

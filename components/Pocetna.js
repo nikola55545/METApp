@@ -280,6 +280,14 @@ export default class Pocetna extends Component {
     </TouchableOpacity>
   );
 
+  _renderPopup = () =>(
+    <View style={styles.bday}>
+      <View style={styles.contentBD}>
+        <Text>Rodjendan!</Text>
+      </View>
+    </View>
+  );
+
   _renderModalContent = () => (
     <View style={styles.modalContent}>
       <StatusBar style="light" animated={true} backgroundColor="#c9093d" />
@@ -409,7 +417,9 @@ export default class Pocetna extends Component {
           justifyContent: "flex-start",
         }}
       >
+        {/* {this._renderPopup()} Pozivanje pop apa na rodjendan */}
         <StatusBar style="light" animated={true} />
+        
         <View style={{ width: "100%", height: "100%" }}>
           <ScrollView
             refreshControl={
@@ -898,7 +908,6 @@ const styles = StyleSheet.create({
     color: "#c9093d",
     fontWeight: "bold",
   },
-  unreadDesc: {},
   unreadDate: {
     color: "#c9093d",
   },
@@ -908,4 +917,23 @@ const styles = StyleSheet.create({
     margin: 6,
     borderRadius: 7,
   },
+  bday:{
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 3, // works on ios
+    elevation: 3, // works on android
+  },
+  contentBD:{
+    backgroundColor: 'white',
+    width: '80%',
+    height: '50%',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
