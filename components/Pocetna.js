@@ -63,6 +63,14 @@ const vh = Dimensions.get("window").height * 0.01;
 // };
 
 export default class Pocetna extends Component {
+  constructor(props) {
+    super(props);
+    this.neprocitana1 = React.createRef();
+    this.neprocitana2 = React.createRef();
+    this.neprocitana3 = React.createRef();
+    this.brojNeprocitanihPoruka = React.createRef();
+  }
+
   state = {
     username: "",
     email: "",
@@ -73,6 +81,7 @@ export default class Pocetna extends Component {
     prezime: "",
     poruka: "Poruka",
     brojMejlova: 0,
+    brojMejlovaText: "Ucitavanje...",
     naslovEmail1: "naslovEmail",
     descEmail1: "descEmail",
     dateEmail1: "dateEmail",
@@ -193,20 +202,45 @@ export default class Pocetna extends Component {
         let brojNeprocitanihMejlova = response.data.length;
         this.setState({ brojMejlova: brojNeprocitanihMejlova });
 
+        console.log(response.data.length);
+        if (brojNeprocitanihMejlova == 0) {
+          this.setState({ brojMejlovaText: "Nemate nepročitanih poruka" });
+        } else if (brojNeprocitanihMejlova == 1) {
+          this.setState({ brojMejlovaText: "1. Nepročitana poruka" });
+        } else if (brojNeprocitanihMejlova == 2) {
+          this.setState({ brojMejlovaText: "2. Nepročitane poruke" });
+        } else if (brojNeprocitanihMejlova == 3) {
+          this.setState({ brojMejlovaText: "3. Nepročitane poruke" });
+        } else if (brojNeprocitanihMejlova > 3) {
+          this.setState({
+            brojMejlovaText: brojNeprocitanihMejlova + " Nepročitanih poruka",
+          });
+        }
+
         if (brojNeprocitanihMejlova > 0) {
           this.setState({ naslovEmail1: response.data[0].subject });
           this.setState({ descEmail1: response.data[0].from });
           this.setState({ dateEmail1: response.data[0].date });
+
+          this.neprocitana1.current.setNativeProps({
+            style: { display: "flex" },
+          });
         }
         if (brojNeprocitanihMejlova > 1) {
           this.setState({ naslovEmail2: response.data[1].subject });
           this.setState({ descEmail2: response.data[1].from });
           this.setState({ dateEmail2: response.data[1].date });
+          this.neprocitana2.current.setNativeProps({
+            style: { display: "flex" },
+          });
         }
         if (brojNeprocitanihMejlova > 2) {
           this.setState({ naslovEmail3: response.data[2].subject });
           this.setState({ descEmail3: response.data[2].from });
           this.setState({ dateEmail3: response.data[2].date });
+          this.neprocitana3.current.setNativeProps({
+            style: { display: "flex" },
+          });
         }
       });
   };
@@ -471,24 +505,27 @@ export default class Pocetna extends Component {
             </ImageBackground>
 
             <View style={styles.unreadMailContainer}>
-              <Text style={styles.categoryTitle}>
-                {this.state.brojMejlova} Nepročitanih poruka
+              <Text
+                style={styles.categoryTitle}
+                ref={this.brojNeprocitanihPoruka}
+              >
+                {this.state.brojMejlovaText}
               </Text>
-              <View style={styles.buttonMail}>
+              <View style={styles.buttonMail} ref={this.neprocitana1}>
                 <Text style={styles.unreadTitle}>
                   {this.state.naslovEmail1}
                 </Text>
                 <Text style={styles.unreadDesc}>{this.state.descEmail1}</Text>
                 <Text style={styles.unreadDate}>{this.state.dateEmail1}</Text>
               </View>
-              <View style={styles.buttonMail}>
+              <View style={styles.buttonMail} ref={this.neprocitana2}>
                 <Text style={styles.unreadTitle}>
                   {this.state.naslovEmail2}
                 </Text>
                 <Text style={styles.unreadDesc}>{this.state.descEmail2}</Text>
                 <Text style={styles.unreadDate}>{this.state.dateEmail2}</Text>
               </View>
-              <View style={styles.buttonMail}>
+              <View style={styles.buttonMail} ref={this.neprocitana3}>
                 <Text style={styles.unreadTitle}>
                   {this.state.naslovEmail3}
                 </Text>
@@ -769,6 +806,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   buttonMail: {
+    display: "none",
     backgroundColor: "white",
     flexDirection: "column",
     padding: 15,
