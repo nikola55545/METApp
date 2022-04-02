@@ -65,7 +65,7 @@ export default class Login extends Component {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         if (response.data.success) {
           this.storeData(this.state.email, this.state.password);
           this.props.navigation.navigate("Pocetna");

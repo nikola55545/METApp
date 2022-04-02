@@ -202,7 +202,7 @@ export default class Pocetna extends Component {
         let brojNeprocitanihMejlova = response.data.length;
         this.setState({ brojMejlova: brojNeprocitanihMejlova });
 
-        console.log(response.data.length);
+        // console.log(response.data.length);
         if (brojNeprocitanihMejlova == 0) {
           this.setState({ brojMejlovaText: "Nemate nepročitanih poruka" });
         } else if (brojNeprocitanihMejlova == 1) {
@@ -302,7 +302,7 @@ export default class Pocetna extends Component {
       this.state.uriIg3 = response.data.parsedData.slikeList[2];
       this.state.uriIg4 = response.data.parsedData.slikeList[3];
 
-      console.log(this.state.uriIg1);
+      //  console.log(this.state.uriIg1);
     });
   };
 
@@ -314,7 +314,7 @@ export default class Pocetna extends Component {
     </TouchableOpacity>
   );
 
-  _renderPopup = () =>(
+  _renderPopup = () => (
     <View style={styles.bday}>
       <View style={styles.contentBD}>
         <Text>Rodjendan!</Text>
@@ -453,7 +453,7 @@ export default class Pocetna extends Component {
       >
         {/* {this._renderPopup()} Pozivanje pop apa na rodjendan */}
         <StatusBar style="light" animated={true} />
-        
+
         <View style={{ width: "100%", height: "100%" }}>
           <ScrollView
             refreshControl={
@@ -557,7 +557,7 @@ export default class Pocetna extends Component {
 
             <View style={styles.unreadMailContainer}>
               <Text style={styles.categoryTitle}>Nova Obaveštenja</Text>
-              <View style={styles.buttonMail}>
+              <View style={styles.buttonObavestenja}>
                 <Text style={styles.unreadTitle}>
                   {this.state.naslovObavestenje1}
                 </Text>
@@ -565,7 +565,7 @@ export default class Pocetna extends Component {
                   {this.state.tekstObavestenje1}
                 </Text>
               </View>
-              <View style={styles.buttonMail}>
+              <View style={styles.buttonObavestenja}>
                 <Text style={styles.unreadTitle}>
                   {this.state.naslovObavestenje2}
                 </Text>
@@ -573,7 +573,7 @@ export default class Pocetna extends Component {
                   {this.state.tekstObavestenje2}
                 </Text>
               </View>
-              <View style={styles.buttonMail}>
+              <View style={styles.buttonObavestenja}>
                 <Text style={styles.unreadTitle}>
                   {this.state.naslovObavestenje3}
                 </Text>
@@ -836,6 +836,26 @@ const styles = StyleSheet.create({
     elevation: 2,
     elevation: 5,
   },
+  buttonObavestenja: {
+    backgroundColor: "white",
+    flexDirection: "column",
+    padding: 15,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    width: "90%",
+    borderRadius: 10,
+    marginTop: 7.5,
+    marginBottom: 7.5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+    elevation: 5,
+  },
   messageContainer: {
     width: "90%",
     paddingTop: 20,
@@ -955,23 +975,23 @@ const styles = StyleSheet.create({
     margin: 6,
     borderRadius: 7,
   },
-  bday:{
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.6)',
+  bday: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.6)",
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     zIndex: 3, // works on ios
     elevation: 3, // works on android
   },
-  contentBD:{
-    backgroundColor: 'white',
-    width: '80%',
-    height: '50%',
+  contentBD: {
+    backgroundColor: "white",
+    width: "80%",
+    height: "50%",
     borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

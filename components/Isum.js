@@ -20,12 +20,15 @@ var screenWidth = Dimensions.get("window").width;
 var screenHeight = Dimensions.get("window").height;
 
 export default class Isum extends Component {
-  // webref = useRef();
-
+  // constructor(props) {
+  //   super(props);
+  //   this.isumView = React.createRef();
+  // }
   state = {
     refreshing: false,
     email: "",
     password: "",
+    click: "",
   };
 
   getData = async () => {
@@ -43,26 +46,18 @@ export default class Isum extends Component {
 
   async componentDidMount() {
     await this.getData();
-    // run = " document.getElementById('username').value = 'trajlabe'";
-    console.log("`" + this.state.password + "`");
-    run =
-      "document.getElementById('username').value = `" +
-      this.state.email.substring(0, this.state.email.indexOf("@")) +
-      "`" +
-      "; document.getElementById('password').value = `" +
-      this.state.password +
-      "`";
-    +"; document.getElementsByClassName('t-beaneditor-submit')[0].click()";
+    this.setState({ click: "click()" });
 
-    // +
-    // this.state.email +
-    // "; "document.getElementById('password').value = " +
-    // this.state.password +
-    // "; document.getElementsByClassName('t-beaneditor-submit')[0].click()";
+    // this.webview.current.setNativeProps({
+    //   injectedJavaScript:
+    //     "document.getElementsByClassName('t-beaneditor-submit')[0].click()",
+    // });
 
-    // setInterval(() => {
-    //   this.webref.injectJavaScript(run);
-    // }, 3000);
+    // isumView.setNativeProps({
+    //   style: { display: "flex" },
+    // });
+
+    //   console.log(this.isumView);
   }
 
   _onRefresh() {
@@ -87,10 +82,19 @@ export default class Isum extends Component {
           }
         >
           <WebView
-            ref={(r) => (this.webref = r)}
+            // ref={isumView}
             source={{
               uri: "https://isum.metropolitan.ac.rs",
             }}
+            injectedJavaScript={
+              "document.getElementById('username').value = `" +
+              this.state.email.substring(0, this.state.email.indexOf("@")) +
+              "`;" +
+              " document.getElementById('password').value = `" +
+              this.state.password +
+              "`;" +
+              " document.getElementsByClassName('t-beaneditor-submit')[0].click()"
+            }
             style={{ width: screenWidth, height: screenHeight }}
           />
         </ScrollView>
