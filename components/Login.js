@@ -53,6 +53,7 @@ export default class Login extends Component {
     // DEV MODE:
     //this.props.navigation.replace("Pocetna");
     // SERVER MODE
+
     const baseURL = "http://89.216.56.107/auth";
     axios
       .post(
@@ -65,7 +66,7 @@ export default class Login extends Component {
         }
       )
       .then((response) => {
-        //console.log(response.data);
+        // console.log("res" + response.data);
         if (response.data.success) {
           this.storeData(this.state.email, this.state.password);
           this.props.navigation.navigate("Pocetna");
@@ -104,14 +105,7 @@ export default class Login extends Component {
     // console.log("E '" + this.state.email + "'");
     // console.log("P '" + this.state.password + "'");
 
-    if (
-      this.state.email != "" &&
-      this.state.password != "" &&
-      this.state.email != "null" &&
-      this.state.password != "null" &&
-      this.state.email != null &&
-      this.state.password != null
-    ) {
+    if (this.state.email != "" && this.state.password != "") {
       console.log("tried");
       this.login();
     }

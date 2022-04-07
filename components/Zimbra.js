@@ -31,7 +31,6 @@ export default class Zimbra extends Component {
   _onRefresh() {
     this.setState({ refreshing: true });
 
-    // Neki kod pa then this.setState({refreshing: false});
     setTimeout(() => {
       this.setState({ refreshing: false });
     }, 1000);
@@ -84,7 +83,7 @@ export default class Zimbra extends Component {
             incognito={true}
             injectedJavaScript={
               "document.getElementById('username').value = `" +
-              this.state.email.substring(0, this.state.email.indexOf("@")) +
+              this.state.email +
               "`;" +
               " document.getElementById('password').value = `" +
               this.state.password +

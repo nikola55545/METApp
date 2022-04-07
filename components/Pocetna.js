@@ -549,7 +549,12 @@ export default class Pocetna extends Component {
                   width: "90%",
                 }}
               >
-                <TouchableOpacity style={styles.checkMailButton}>
+                <TouchableOpacity
+                  style={styles.checkMailButton}
+                  onPress={({ navigation }) => {
+                    this.props.navigation.navigate("Zimbra");
+                  }}
+                >
                   <Text style={{ color: "white" }}>PROVERI POSTU</Text>
                 </TouchableOpacity>
               </View>

@@ -47,6 +47,9 @@ export default class Isum extends Component {
   async componentDidMount() {
     await this.getData();
     this.setState({ click: "click()" });
+    console.log(
+      this.state.email.substring(0, this.state.email.indexOf("@")).toLowerCase()
+    );
 
     // this.webview.current.setNativeProps({
     //   injectedJavaScript:
@@ -86,6 +89,7 @@ export default class Isum extends Component {
             source={{
               uri: "https://isum.metropolitan.ac.rs",
             }}
+            incognito={true}
             injectedJavaScript={
               "document.getElementById('username').value = `" +
               this.state.email
