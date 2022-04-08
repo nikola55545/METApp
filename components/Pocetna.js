@@ -14,12 +14,11 @@ import {
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import AnimatedPullToRefresh from "react-native-animated-pull-to-refresh";
-
 import Modal from "react-native-modal";
+import LottieView from 'lottie-react-native';
 
 import StudentBg from "../assets/studentbg.png";
 import backgroundImage from "../assets/bg-login.jpg";
@@ -76,6 +75,7 @@ export default class Pocetna extends Component {
     email: "",
     password: "",
     visibleModal: null,
+    visiblePopup: null,
     refreshing: false,
     ime: "Ime", //Default vrednost
     prezime: "",
@@ -98,8 +98,7 @@ export default class Pocetna extends Component {
     naslovObavestenje3: "naslovObavestenje",
     tekstObavestenje3: "tekstObavestenje",
     dateEvent1: "dateEvent",
-    tekstEvent1:
-      "tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent tekstEvent",
+    tekstEvent1: "tekstEvent",
     dateEvent2: "dateEvent",
     tekstEvent2: "tekstEvent",
     dateEvent3: "dateEvent",
@@ -170,7 +169,7 @@ export default class Pocetna extends Component {
     axios
       .get(
         "https://isum.metropolitan.ac.rs/rest/metapp/user/" +
-          this.state.username
+        this.state.username
       )
       .then((response) => {
         //   console.log(response.data.body);
@@ -317,7 +316,11 @@ export default class Pocetna extends Component {
   _renderPopup = () => (
     <View style={styles.bday}>
       <View style={styles.contentBD}>
-        <Text>Rodjendan!</Text>
+        <TouchableOpacity style={{ position: 'absolute', padding: 5 , top: 10, right: 10, zIndex: 50, elevation: 50, backgroundColor:'#c9093d', borderRadius: 100 }} onPress={() => { this.setState({ visiblePopup: null }) }}>
+          <Image source={CloseIcon} style={{ width: 30, height: 30 }} />
+        </TouchableOpacity>
+        <LottieView source={require('../assets/konfete.json')} style={{ position: 'absolute', top: 0, width: '100%', height: 500 , alignSelf: 'stretch'}} autoPlay loop />
+        {/* <LottieView source={require('../assets/torta.json')} autoPlay loop /> */}
       </View>
     </View>
   );
@@ -451,7 +454,10 @@ export default class Pocetna extends Component {
           justifyContent: "flex-start",
         }}
       >
-        {/* {this._renderPopup()} Pozivanje pop apa na rodjendan */}
+        <Modal isVisible={this.state.visiblePopup === 1}>
+          {this._renderPopup()}
+        </Modal>
+
         <StatusBar style="light" animated={true} />
 
         <View style={{ width: "100%", height: "100%" }}>
@@ -473,8 +479,9 @@ export default class Pocetna extends Component {
                 <View style={styles.menuButtonsMainPage}>
                   <TouchableOpacity
                     onPress={({ navigation }) => {
-                      this.props.navigation.navigate("Podesavanja");
-                      this.setState({ visibleModal: null });
+                      // this.props.navigation.navigate("Podesavanja");
+                      // this.setState({ visibleModal: null });
+                      this.setState({ visiblePopup: 1 });
                     }}
                   >
                     <Image
@@ -760,8 +767,8 @@ const styles = StyleSheet.create({
   horizontalContentView: {
     flex: 1,
     paddingTop: 10,
-    marginLeft: 20,
-    marginRight: 20,
+    paddingLeft: 20,
+    marginRight: 0,
   },
   unreadMailContainer: {
     width: "100%",
@@ -964,7 +971,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
-    elevation: 2,
     elevation: 5,
   },
   unreadTitle: {
@@ -984,18 +990,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(0,0,0,0.6)",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 3, // works on ios
-    elevation: 3, // works on android
   },
   contentBD: {
     backgroundColor: "white",
-    width: "80%",
-    height: "50%",
-    borderRadius: 10,
+    width: "95%",
+    height: "70%",
+    borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
   },
