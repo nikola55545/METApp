@@ -207,11 +207,11 @@ export default class Pocetna extends Component {
         if (brojNeprocitanihMejlova == 0) {
           this.setState({ brojMejlovaText: "Nemate nepročitanih poruka" });
         } else if (brojNeprocitanihMejlova == 1) {
-          this.setState({ brojMejlovaText: "1. Nepročitana poruka" });
+          this.setState({ brojMejlovaText: "1 Nepročitana poruka" });
         } else if (brojNeprocitanihMejlova == 2) {
-          this.setState({ brojMejlovaText: "2. Nepročitane poruke" });
+          this.setState({ brojMejlovaText: "2 Nepročitane poruke" });
         } else if (brojNeprocitanihMejlova == 3) {
-          this.setState({ brojMejlovaText: "3. Nepročitane poruke" });
+          this.setState({ brojMejlovaText: "3 Nepročitane poruke" });
         } else if (brojNeprocitanihMejlova > 3) {
           this.setState({
             brojMejlovaText: brojNeprocitanihMejlova + " Nepročitanih poruka",
@@ -442,7 +442,8 @@ export default class Pocetna extends Component {
   _onRefresh() {
     this.setState({ refreshing: true });
 
-    // Neki kod pa then this.setState({refreshing: false});
+    this.props.navigation.replace("Pocetna", null, null); //Refresh screen
+
     setTimeout(() => {
       this.setState({ refreshing: false });
     }, 1000);
@@ -571,7 +572,7 @@ export default class Pocetna extends Component {
             </View>
 
             <View style={styles.unreadMailContainer}>
-              <Text style={styles.categoryTitle}>Nova Obaveštenja</Text>
+              <Text style={styles.categoryTitle}>Nepročitana obaveštenja</Text>
               <View style={styles.buttonObavestenja}>
                 <Text style={styles.unreadTitle}>
                   {this.state.naslovObavestenje1}
@@ -941,7 +942,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     flexWrap: "wrap",
-    marginTop: 10,
+    marginTop: 40,
   },
   gridWrapInstagram: {
     justifyContent: "center",
