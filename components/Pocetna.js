@@ -41,6 +41,8 @@ import WhatsappIcon from "../assets/icons/whatsapp.png";
 import LinkedinIcon from "../assets/icons/linkedin.png";
 import InstagramIcon from "../assets/icons/instagram.png";
 import YoutubeIcon from "../assets/icons/yt.png";
+import TikTokIcon from "../assets/icons/tiktok.png";
+import METIGIF from '../assets/popup.gif';
 
 const axios = require("axios").default;
 
@@ -319,8 +321,9 @@ export default class Pocetna extends Component {
         <TouchableOpacity style={{ position: 'absolute', padding: 5 , top: 10, right: 10, zIndex: 50, elevation: 50, backgroundColor:'#c9093d', borderRadius: 100 }} onPress={() => { this.setState({ visiblePopup: null }) }}>
           <Image source={CloseIcon} style={{ width: 30, height: 30 }} />
         </TouchableOpacity>
-        <LottieView source={require('../assets/konfete.json')} style={{ position: 'absolute', top: 0, width: '100%', height: 500 , alignSelf: 'stretch'}} autoPlay loop />
-        {/* <LottieView source={require('../assets/torta.json')} autoPlay loop /> */}
+        <Image
+          style={{width: 300, height: 500}}
+          source={METIGIF} />
       </View>
     </View>
   );
@@ -693,6 +696,9 @@ export default class Pocetna extends Component {
                     />
                   </TouchableOpacity>
                   <TouchableOpacity>
+                    <Image source={TikTokIcon} style={styles.circularImage} />
+                  </TouchableOpacity>
+                  <TouchableOpacity>
                     <Image source={YoutubeIcon} style={styles.circularImage} />
                   </TouchableOpacity>
                   <TouchableOpacity>
@@ -820,9 +826,9 @@ const styles = StyleSheet.create({
   },
   circularImage: {
     borderRadius: 400 / 2,
-    width: 50,
-    height: 50,
-    marginStart: 5,
+    width: 45,
+    height: 45,
+    marginStart: 4,
   },
   socialContainer: {
     paddingTop: 15,
@@ -1001,5 +1007,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 60
   },
 });
