@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "362143466295",
+    "project_id": "rn-metapp",
+    "storage_bucket": "rn-metapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362143466295:android:ceef9b49b36f54a06ed0b2",
+        "android_client_info": {
+          "package_name": "com.metropolitan.metapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362143466295-q5pojpqv2jdbbsg6lra845fqhr04gdbb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmAB44NR09k7ory67_mN4sQf9j4xZvmYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362143466295-q5pojpqv2jdbbsg6lra845fqhr04gdbb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

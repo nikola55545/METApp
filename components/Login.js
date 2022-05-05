@@ -23,6 +23,7 @@ import password from "../assets/login-icons/ic_password.png";
 import banner from "../assets/banner.png";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { get } from "react-native/Libraries/Utilities/PixelRatio";
+import BackgroundFetch from "react-native-background-fetch";
 
 const axios = require("axios").default;
 
@@ -45,8 +46,71 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
+    // this.initBackgroundFetch();
     this.autoLogin();
   }
+  getNeprocitanePoruke = () => {
+    const baseURL = "http://89.216.56.107/returnMessages"; // Viktor lokalni server
+    axios
+      .post(
+        baseURL,
+        { email: this.state.email, password: this.state.password },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+      });
+  };
+
+  // async initBackgroundFetch() {
+  //   // BackgroundFetch event handler.
+  //   console.log("init check");
+  //   const taskId = 1;
+  //   const onEvent = async (taskId) => {
+  //     console.log("[BackgroundFetch] task: ", taskId);
+  //     getNeprocitanePoruke;
+  //     await this.addEvent(taskId);
+  //     // IMPORTANT:  You must signal to the OS that your task is complete.
+  //     BackgroundFetch.finish(taskId);
+  //   };
+
+  //   // Timeout callback is executed when your Task has exceeded its allowed running-time.
+  //   // You must stop what you're doing immediately BackgroundFetch.finish(taskId)
+  //   const onTimeout = async (taskId) => {
+  //     console.warn("[BackgroundFetch] TIMEOUT task: ", taskId);
+  //     BackgroundFetch.finish(taskId);
+  //   };
+
+  //   // Initialize BackgroundFetch only once when component mounts.
+  //   let status = await BackgroundFetch.configure(
+  //     { minimumFetchInterval: 15 },
+  //     onEvent,
+  //     onTimeout
+  //   );
+
+  //   console.log("[BackgroundFetch] configure status: ", status);
+  // }
+
+  // // Add a BackgroundFetch event to <FlatList>
+  // addEvent(taskId) {
+  //   // Simulate a possibly long-running asynchronous task with a Promise.
+  //   return new Promise((resolve, reject) => {
+  //     this.setState((state) => ({
+  //       events: [
+  //         ...state.events,
+  //         {
+  //           taskId: taskId,
+  //           timestamp: new Date().toString(),
+  //         },
+  //       ],
+  //     }));
+  //     resolve();
+  //   });
+  // }
 
   //Viktor kod
   login = () => {
