@@ -319,11 +319,11 @@ export default class Pocetna extends Component {
   _renderPopup = () => (
     <View style={styles.bday}>
       <View style={styles.contentBD}>
-        <TouchableOpacity style={{ position: 'absolute', padding: 5 , top: 10, right: 10, zIndex: 50, elevation: 50, backgroundColor:'#c9093d', borderRadius: 100 }} onPress={() => { this.setState({ visiblePopup: null }) }}>
+        <TouchableOpacity style={{ position: 'absolute', padding: 5, top: 10, right: 10, zIndex: 50, elevation: 50, backgroundColor: '#c9093d', borderRadius: 100 }} onPress={() => { this.setState({ visiblePopup: null }) }}>
           <Image source={CloseIcon} style={{ width: 30, height: 30 }} />
         </TouchableOpacity>
         <Image
-          style={{width: 300, height: 500}}
+          style={{ width: 300, height: 500 }}
           source={METIGIF} />
       </View>
     </View>
@@ -688,29 +688,36 @@ export default class Pocetna extends Component {
                     marginRight: "5%",
                   }}
                 >
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => {
+                    Linking.openURL('https://www.facebook.com/UniverzitetMetropolitan/')
+                  }}>
                     <Image source={FacebookIcon} style={styles.circularImage} />
                   </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image
-                      source={InstagramIcon}
-                      style={styles.circularImage}
-                    />
+                  <TouchableOpacity onPress={() => {
+                    Linking.openURL('https://www.instagram.com/univerzitet_metropolitan/')
+                  }}>
+                    <Image source={InstagramIcon} style={styles.circularImage} />
                   </TouchableOpacity>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => {
+                    Linking.openURL('https://www.tiktok.com/@univerzitetmetropolitan')
+                  }}>
                     <Image source={TikTokIcon} style={styles.circularImage} />
                   </TouchableOpacity>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => {
+                    Linking.openURL('https://www.youtube.com/user/fitmetropolitan')
+                  }}>
                     <Image source={YoutubeIcon} style={styles.circularImage} />
                   </TouchableOpacity>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => {
+                    Linking.openURL('https://www.linkedin.com/school/univerzitet-metropolitan/')
+                  }}>
                     <Image source={LinkedinIcon} style={styles.circularImage} />
                   </TouchableOpacity>
                 </View>
               </View>
 
               <View style={styles.gridWrapInstagram}>
-                <TouchableOpacity onPress={ ()=> {
+                <TouchableOpacity onPress={() => {
                   Linking.openURL('https://www.instagram.com/univerzitet_metropolitan/')
                 }}>
                   <Image
@@ -718,7 +725,7 @@ export default class Pocetna extends Component {
                     style={styles.igPhoto}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={ ()=> {
+                <TouchableOpacity onPress={() => {
                   Linking.openURL('https://www.instagram.com/univerzitet_metropolitan/')
                 }}>
                   <Image
@@ -726,7 +733,7 @@ export default class Pocetna extends Component {
                     style={styles.igPhoto}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={ ()=> {
+                <TouchableOpacity onPress={() => {
                   Linking.openURL('https://www.instagram.com/univerzitet_metropolitan/')
                 }}>
                   <Image
@@ -734,7 +741,7 @@ export default class Pocetna extends Component {
                     style={styles.igPhoto}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={ ()=> {
+                <TouchableOpacity onPress={() => {
                   Linking.openURL('https://www.instagram.com/univerzitet_metropolitan/')
                 }}>
                   <Image

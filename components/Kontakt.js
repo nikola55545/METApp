@@ -31,10 +31,10 @@ export default class Kontakt extends Component {
                 <View style={styles.topIcons}>
                     <TouchableOpacity><Image source={WhatsappIcon} style={styles.icon} /></TouchableOpacity>
                     <TouchableOpacity><Image source={ViberIcon} style={styles.icon} /></TouchableOpacity>
-                    <TouchableOpacity><Image source={FacebookIcon} style={styles.icon} /></TouchableOpacity>
-                    <TouchableOpacity><Image source={TikTokIcon} style={styles.icon} /></TouchableOpacity>
-                    <TouchableOpacity><Image source={InstagramIcon} style={styles.icon} /></TouchableOpacity>
-                    <TouchableOpacity><Image source={LinkedinIcon} style={styles.icon} /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { Linking.openURL('https://www.facebook.com/UniverzitetMetropolitan/')}}><Image source={FacebookIcon} style={styles.icon} /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { Linking.openURL('https://www.tiktok.com/@univerzitetmetropolitan')}}><Image source={TikTokIcon} style={styles.icon} /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { Linking.openURL('https://www.instagram.com/univerzitet_metropolitan/')}}><Image source={InstagramIcon} style={styles.icon} /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { Linking.openURL('https://www.linkedin.com/school/univerzitet-metropolitan/')}}><Image source={LinkedinIcon} style={styles.icon} /></TouchableOpacity>
                 </View>
                 <TouchableOpacity style={styles.button}>
                     <View>
