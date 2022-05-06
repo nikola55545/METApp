@@ -11,6 +11,7 @@ import {
   ScrollView,
   RefreshControl,
   Dimensions,
+  Linking,
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -709,25 +710,33 @@ export default class Pocetna extends Component {
               </View>
 
               <View style={styles.gridWrapInstagram}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={ ()=> {
+                  Linking.openURL('https://www.instagram.com/univerzitet_metropolitan/')
+                }}>
                   <Image
                     source={{ uri: this.state.uriIg1 }}
                     style={styles.igPhoto}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={ ()=> {
+                  Linking.openURL('https://www.instagram.com/univerzitet_metropolitan/')
+                }}>
                   <Image
                     source={{ uri: this.state.uriIg2 }}
                     style={styles.igPhoto}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={ ()=> {
+                  Linking.openURL('https://www.instagram.com/univerzitet_metropolitan/')
+                }}>
                   <Image
                     source={{ uri: this.state.uriIg3 }}
                     style={styles.igPhoto}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={ ()=> {
+                  Linking.openURL('https://www.instagram.com/univerzitet_metropolitan/')
+                }}>
                   <Image
                     source={{ uri: this.state.uriIg4 }}
                     style={styles.igPhoto}
