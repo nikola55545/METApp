@@ -1,10 +1,5 @@
 {
-  "expoServerPort": null,
+  "expoServerPort": 19000,
   "devToolsPort": 19002,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": "https://ni-rs8.anonymous.metapp.exp.direct",
-  "packagerNgrokUrl": "https://ni-rs8.anonymous.metapp.exp.direct",
-  "ngrokPid": 12596,
-  "webpackServerPort": null
+  "packagerPort": 19000
 }
