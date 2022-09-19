@@ -16,31 +16,39 @@ import Podesavanja from "./components/Podesavanja";
 import Kontakt from "./components/Kontakt";
 import registerNNPushToken from "native-notify";
 
-// Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
-// // TODO: Add SDKs for Firebase products that you want to use
-// // https://firebase.google.com/docs/web/setup#available-libraries
+//BG FETCH
+import * as BackgroundFetch from "expo-background-fetch";
+import * as TaskManager from "expo-task-manager";
 
-// // Your web app's Firebase configuration
-// // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCPbe0U_pXr5df3XrEmdKvaUHH2REGy9XI",
-//   authDomain: "rn-metapp-7946c.firebaseapp.com",
-//   projectId: "rn-metapp-7946c",
-//   storageBucket: "rn-metapp-7946c.appspot.com",
-//   messagingSenderId: "268735757057",
-//   appId: "1:268735757057:web:59308f77a6b49f63453900",
-//   measurementId: "G-NDN69JPX58",
-// };
-
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-
+//
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const [isRegistered, setIsRegistered] = React.useState(false);
+  const [status, setStatus] = React.useState(null);
+
+  React.useEffect(() => {
+    checkStatusAsync();
+  }, []);
+
+  const checkStatusAsync = async () => {
+    const status = await BackgroundFetch.getStatusAsync();
+    const isRegistered = await TaskManager.isTaskRegisteredAsync(
+      BACKGROUND_FETCH_TASK
+    );
+    setStatus(status);
+    setIsRegistered(isRegistered);
+  };
+
+  const toggleFetchTask = async () => {
+    if (isRegistered) {
+      await unregisterBackgroundFetchAsync();
+    } else {
+      await registerBackgroundFetchAsync();
+    }
+
+    checkStatusAsync();
+  };
   registerNNPushToken(2597, "6KYr95bAzqbUAG4d1yry86");
   return (
     <NavigationContainer>

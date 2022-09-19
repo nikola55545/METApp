@@ -22,8 +22,14 @@ var screenHeight = Dimensions.get("window").height;
 export default class Lams extends Component {
   constructor(props) {
     super(props);
-    this.webView = React.useRef();
+    //this.webView = React.useRef();
   }
+  state = {
+    refreshing: false,
+    email: "",
+    password: "",
+    click: "",
+  };
 
   _onRefresh() {
     this.setState({ refreshing: true });
@@ -64,8 +70,8 @@ export default class Lams extends Component {
           }
         >
           <WebView
-            ref={webView}
-            onNavigationStateChange={this._onNavigationStateChange.bind(this)}
+            // ref={webView}
+            //  onNavigationStateChange={this._onNavigationStateChange.bind(this)}
             source={{
               uri: "http://lams.metropolitan.ac.rs:8080/lams/index.do",
             }}
