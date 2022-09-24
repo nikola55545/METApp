@@ -73,7 +73,6 @@ export default class Lams extends Component {
         >
           <WebView
             onMessage={(event) => {}}
-            javaScriptCanOpenWindowsAutomatically
             source={{
               uri: "http://lams.metropolitan.ac.rs:8080/lams/index.do",
             }}

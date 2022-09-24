@@ -184,6 +184,7 @@ export default class Pocetna extends Component {
         if (mm < 10) mm = '0' + mm;
 
         var formatedDate = dd + "." + mm + "." + yyyy;
+        //console.log(response.data.datumRodjenja)
 
         response.data.datumRodjenja == formatedDate ? this.setState({ visiblePopup: 1 }) : this.setState({ visiblePopup: 0 });
 

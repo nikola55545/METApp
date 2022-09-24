@@ -17,8 +17,8 @@ import Kontakt from "./components/Kontakt";
 import registerNNPushToken from "native-notify";
 
 //BG FETCH
-import * as BackgroundFetch from "expo-background-fetch";
-import * as TaskManager from "expo-task-manager";
+// import * as BackgroundFetch from "expo-background-fetch";
+// import * as TaskManager from "expo-task-manager";
 
 //
 const Stack = createNativeStackNavigator();
