@@ -90,6 +90,8 @@ export default class Isum extends Component {
               uri: "https://isum.metropolitan.ac.rs",
             }}
             incognito={true}
+            onMessage={(event) => {}}
+            javaScriptCanOpenWindowsAutomatically
             injectedJavaScript={
               "document.getElementById('username').value = `" +
               this.state.email

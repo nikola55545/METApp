@@ -175,7 +175,18 @@ export default class Pocetna extends Component {
         this.state.username
       )
       .then((response) => {
-        //   console.log(response.data.body);
+        var date = new Date();
+        var yyyy = date.getFullYear();
+        var mm = date.getMonth() + 1;
+        var dd = date.getDate();
+
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+
+        var formatedDate = dd + "." + mm + "." + yyyy;
+
+        response.data.datumRodjenja == formatedDate ? this.setState({ visiblePopup: 1 }) : this.setState({ visiblePopup: 0 });
+
         this.setState({ ime: response.data.ime });
         //   console.log("ime= " + this.state.ime);
       });
@@ -484,9 +495,8 @@ export default class Pocetna extends Component {
                 <View style={styles.menuButtonsMainPage}>
                   <TouchableOpacity
                     onPress={({ navigation }) => {
-                      // this.props.navigation.navigate("Podesavanja");
-                      // this.setState({ visibleModal: null });
-                      this.setState({ visiblePopup: 1 });
+                      this.props.navigation.navigate("Podesavanja");
+                      this.setState({ visibleModal: null });
                     }}
                   >
                     <Image
